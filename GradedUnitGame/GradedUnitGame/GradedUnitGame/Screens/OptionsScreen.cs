@@ -16,15 +16,12 @@ namespace GradedUnitGame
 {
     class OptionsScreen : MenuScreen
     {
+        //initialises menu entries as MenuEntry class
         MenuEntry laserColourEntry;
         MenuEntry playerShipEntry;
         MenuEntry soundEntry;
-        Texture2D playerShipTex1;
-        Texture2D playerShipTex2;
-        Texture2D playerShipTex3;
-        Texture2D gradientTexture;
-       
         
+        //lasercolour options
       public enum laserColour
         {
             Red,
@@ -34,6 +31,7 @@ namespace GradedUnitGame
             DrkSalmon,
         }
 
+        //playership options
         enum playerShip
         {
             One,
@@ -41,13 +39,15 @@ namespace GradedUnitGame
             Three,
         }
 
+        //sound options
         enum sound
         {
             On,
             Off,
         }
 
-        public static laserColour currentColour = laserColour.DrkSalmon;
+        //initialises the menu option
+        public static laserColour currentColour = laserColour.Red;
         static playerShip currentShip = playerShip.One;
         static sound currentSound = sound.On;
 
@@ -62,7 +62,7 @@ namespace GradedUnitGame
 
             MenuEntry back = new MenuEntry("Return");
 
-            laserColourEntry.Selected += turretColourEntrySel;
+            laserColourEntry.Selected += laserColourEntrySel;
             playerShipEntry.Selected += playerShipEntrySel;
             soundEntry.Selected += soundEntrySel;
             back.Selected += OnCancel;
@@ -74,38 +74,41 @@ namespace GradedUnitGame
             
         }
 
-     //   private bool toggleSound(bool sound)
-      //  {
-       //     if (sound == true)
-        //    {
-       //         sound = false;
+        //todo, toggle sound mutes all sounds
+      // private void toggleSound()
+       // {
+          //   if (currentSound = sound.Off)
+         //   {
+          //      playMusic = false;
                 //set sound to OFF
          //   }
-         //   else if (sound == false)
-         //   {
-           //     sound = true;
+         //  else if (sound currentSound = sound.On)
+          //  {
+           //     playMusic = true;
                 //set sound to ON
-          //  }
-          //  return sound;
+         //   }
+         //   return playMusic;
+         // }
 
-      //  }
 
-
+        //sets the menu text
             void setMenuText()
             {
-                laserColourEntry.Text = "Turret Colour: " + currentColour;
+                laserColourEntry.Text = "Laser Colour: " + currentColour;
                 playerShipEntry.Text = "Ship Design: " + currentShip;
                 soundEntry.Text = "Sound: " + currentSound;
             }
 
-        void turretColourEntrySel(object sender, PlayerIndexEventArgs e)
+        //toggles through lasercolour options when selected
+        void laserColourEntrySel(object sender, PlayerIndexEventArgs e)
             {
                 currentColour++;
-                if (currentColour > laserColour.Yellow)
+                if (currentColour > laserColour.DrkSalmon)
                     currentColour = 0;
                 setMenuText();
             }
 
+        //toggles through the playership option when selected
         void playerShipEntrySel(object sender, PlayerIndexEventArgs e)
         {
             currentShip++;
@@ -114,6 +117,7 @@ namespace GradedUnitGame
             setMenuText();
         }
 
+        //if player selects the sound option, it will toggle between on and off
         void soundEntrySel(object sender, PlayerIndexEventArgs e)
         {
             currentSound++;
@@ -122,54 +126,16 @@ namespace GradedUnitGame
             setMenuText();
         }
 
+        //loads content, this is called once per screen
         public override void LoadContent()
         {
             ContentManager content = ScreenManager.Game.Content;
-
-            playerShipTex1 = content.Load<Texture2D>("./Players/Player1");
-            playerShipTex2 = content.Load<Texture2D>("./Players/Player2");
-            playerShipTex3 = content.Load<Texture2D>("./Players/Player3");
-            gradientTexture = content.Load<Texture2D>("./Ui Misc/gradient");
         }
 
-        void DrawPreview(GameTime gametime)
-        {
-            SpriteBatch sBatch = ScreenManager.SpriteBatch;
-            SpriteFont font = ScreenManager.Font;
-
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
-            Vector2 spritePos = (viewportSize / 2);
-            const int hPad = 32;
-            const int vPad = 16;
-            Rectangle previewRect = new Rectangle((int)spritePos.X - hPad,
-                                                           (int)spritePos.Y - vPad,
-                                                           (int)spritePos.X + hPad * 2,
-                                                           (int)spritePos.Y + vPad * 2);
-            
-
-            sBatch.Begin();
-
-            // Draw the background rectangle.
-            //sBatch.Draw(gradientTexture, previewRect, Color.AntiqueWhite);
-            //sBatch.Draw(playerShipTex1, new Vector2(100,100),Color.White);
-            sBatch.DrawString(font, "test", new Vector2(100, 100), Color.Purple);
-            // Draw the message box text.
-            //if (currentShip.Equals(playerShip.One))
-            //{
-            //    sBatch.Draw(playerShipTex1, spritePos, Color.AntiqueWhite);
-            //}
-            //else if (currentShip.Equals(playerShip.Two))
-            //{
-            //    sBatch.Draw(playerShipTex2, spritePos, Color.AntiqueWhite);
-            //}
-            //else
-            //{
-            //    sBatch.Draw(playerShipTex3, spritePos, Color.AntiqueWhite);
-            //}
-            
-            sBatch.End();
-        }
+        //todo change playersprite draw to the playership option
+        //todo change lasersprite color to lasercolour option
+       
+        
 
         }
     

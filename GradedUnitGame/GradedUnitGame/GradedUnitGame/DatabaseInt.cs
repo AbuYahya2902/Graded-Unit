@@ -22,7 +22,7 @@ namespace GradedUnitGame
     class DatabaseInt
     {
       
-        private void Read_Database()
+        private void ReadDatabase()
         {
             //tells the game where to look for the database
             string conString = "Provider=Microsoft.JET.OLEDB.4.0;data source=E:/Graded Unit/GradedUnitGame/HighScoresDB.accdb";
@@ -50,8 +50,8 @@ namespace GradedUnitGame
             con.Close();
             }
 
-
-        private void Write_Database()
+        //todo write to the database
+        private void WriteDatabase()
         {
            
         }

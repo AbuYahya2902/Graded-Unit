@@ -35,7 +35,6 @@ namespace GradedUnitGame
         SoundEffect gameMusic;
         SoundEffectInstance gameMusicInstance;
         SoundEffect playerLaserSound;
-        SoundEffectInstance playerLaserSoundInstance;
         SoundEffect enemyLaserSound;
         SoundEffect explosions;
 
@@ -85,6 +84,7 @@ namespace GradedUnitGame
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
+
             //load the game background
             bgTex = this.content.Load<Texture2D>("./UI Misc/earth");
 
@@ -102,6 +102,8 @@ namespace GradedUnitGame
             
             //load sounds
             gameMusic = this.content.Load<SoundEffect>("./Sounds/DST-CryolithicBreak");
+            gameMusicInstance = gameMusic.CreateInstance();
+
             playerLaserSound = this.content.Load<SoundEffect>("./Sounds/happypew");
             enemyLaserSound = this.content.Load<SoundEffect>("./Sounds/sadpew");
             explosions = this.content.Load<SoundEffect>("./Sounds/Explosion");
@@ -119,8 +121,25 @@ namespace GradedUnitGame
             //add lasers
             lasers = new Lasers(laserTex, screenBoundary);
 
+            //plays sound
+            PlaySound();
+
             //reset time so it doesnt try to catch up
             ScreenManager.Game.ResetElapsedTime();
+        }
+
+        //plays game music if its not already playing
+        private void PlaySound()
+        {
+            if (gameMusicInstance.State == SoundState.Stopped)
+            {
+                gameMusicInstance.IsLooped = true;
+                gameMusicInstance.Play();
+            }
+            else if (gameMusicInstance.State == SoundState.Playing)
+            {
+                gameMusicInstance.Pause();
+            }
         }
 
         //adds the enemies
@@ -156,9 +175,7 @@ namespace GradedUnitGame
                 {
                     enemies[i, e] = new Enemies(enemySprite, new Rectangle(i *  enemySprite.Width, e * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
                 }
-            }
-
-            
+            } 
         }
 
         //adds the lasers
@@ -166,6 +183,12 @@ namespace GradedUnitGame
         {
             if (!lasers.ifisActive())
             lasers.Fire(player.GetBoundary());
+
+            //play player-laser sound only when player is firing a laser
+            if (lasers.ifisActive())
+            {
+                playerLaserSound.Play();
+            }
             
         }
 
@@ -179,7 +202,9 @@ namespace GradedUnitGame
         #region Update&Draw
         private void UpdateEnemies(GameTime gameTime)
         {
-
+            //todo: make enemies move and attack
+            //enemies move left until they hit screen bounds, then move down and then move right until screen bounds
+            //down then left, repeat
         }
 
         //updates the game attributes
@@ -187,16 +212,59 @@ namespace GradedUnitGame
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
+            lasers.UpdatePosition();
+            //todo UpdateEnemies();
+            //todo call UpdateCollision();
+            //todo check if player.isAlive == false, then end game + prompt user to enter name + call dataInt.WriteDatabase()
 
             // fade in or out if covered by pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-            lasers.UpdatePosition();
-
         }
 
+        private void UpdateCollision()
+        {
+            Rectangle enemyBox;
+            Rectangle enemyLaserBox;
+            Rectangle playerBox;
+            Rectangle playerLaserBox;
+
+
+            // todo make rectangle for playerlaser position
+            // if (playerLaserBox.Intersects(enemyBox)) then kill enemy
+            // if (enemyLaserBox.Intersects(playerBox)) remove 1 charge from player shield
+            //if  (enemyBox.Intersects(screenBoundary?????)) enemy collides wth bottom of screen, gg 
+
+            //playerBox = new Rectangle((int)player.playerCoords.X, (int)player.playerCoords.Y, player.Width, player.Height);
+
+            // Do the collision between the player and the enemies
+            /*for (int i = 0; i < enemies.Count; i++)
+            {
+                enemyBox = new Rectangle((int)enemies[i].Position.X,
+                (int)enemies[i].Position.Y,
+                enemies[i].Width,
+                enemies[i].Height);
+
+                // Determine if the two objects collided with each
+                // other
+                if (playerBox.Intersects(enemyBox))
+                {
+                    //subtract 1 charge from player shie/d
+                    player.playerShield -= 1;
+
+                    // Since the enemy collided with the player
+                    // destroy it
+                    enemies[i].Health = 0;
+
+                  
+                }
+
+            }*/
+        }
+
+       
         //handles the player input
         public override void HandleInput(InputState input)
         {
@@ -248,22 +316,7 @@ namespace GradedUnitGame
                   AddLaser();
               }
 
-                //play player-laser sound only when player is firing a laser
-                //   if (laser.isActive)
-                //     {
-                //        if (playerLaserSoundInstance.State == SoundState.Stopped)
-                //        {
-                //          playerLaserSoundInstance.IsLooped = true;
-                //            playerLaserSoundInstance.Play();
-                //      }
-                //       else
-                //         playerLaserSoundInstance.Resume();
-                //  }
-                //   else if (laser.isActive == false)
-                //    {
-                //        if (playerLaserSoundInstance.State == SoundState.Playing)
-                //             playerLaserSoundInstance.Pause();
-                //   }
+               
             }
         }
 
@@ -271,18 +324,25 @@ namespace GradedUnitGame
         //draws the sprites onto the game screen
         public override void Draw(GameTime gameTime)
         {
-
             SpriteBatch sBatch = ScreenManager.SpriteBatch;
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             sBatch.Begin();
+            //todo display player current score
+            sBatch.DrawString(gameFont, "Score: " + player.playerScore, new Vector2(100, 100), Color.HotPink);
             sBatch.Draw(bgTex, fullscreen, Color.White);
             player.Draw(sBatch);
             foreach (Enemies enemy in enemies)
-                enemy.draw(sBatch);
+            enemy.draw(sBatch);
             lasers.Draw(sBatch);
 
+            //todo: end game screen + displayscore
+            if (player.isAlive == false)
+            {
+                sBatch.DrawString(gameFont, "Game Over!", new Vector2(viewport.Width / 2, viewport.Height / 2), Color.Coral);
+                sBatch.DrawString(gameFont, "Final Score: " + player.playerScore, new Vector2(450, 300), Color.DeepPink);
+            }
             sBatch.End();
 
             if (TransPos > 0 || pauseAlpha > 0)

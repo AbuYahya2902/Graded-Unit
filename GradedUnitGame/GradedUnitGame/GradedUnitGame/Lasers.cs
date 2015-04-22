@@ -20,7 +20,7 @@ namespace GradedUnitGame
         //texture for the laser
         Texture2D laserTex;
 
-        Color colour;
+        
 
         //current position of the laser
         public Vector2 laserPos;
@@ -106,7 +106,7 @@ namespace GradedUnitGame
         public void Draw(SpriteBatch sBatch)
         {
             if (isActive)
-                sBatch.Draw(laserTex, laserPos, colour);
+                sBatch.Draw(laserTex, laserPos, Color.DarkSalmon);
         }
     }
 }

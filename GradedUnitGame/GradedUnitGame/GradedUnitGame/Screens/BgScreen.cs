@@ -14,7 +14,7 @@ namespace GradedUnitGame
     {
 
          ContentManager content;
-         Texture2D bgTex;
+ 
 
         #region Initialization
         /// <summary>

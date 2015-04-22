@@ -17,7 +17,7 @@ namespace GradedUnitGame
    class HighscoreScreen : MenuScreen
     {
        MenuEntry modeEntry;
-
+       DatabaseInt dataInt;
        enum mode
        {
            Arcade,
@@ -52,20 +52,31 @@ namespace GradedUnitGame
             if (currentMode > mode.Cooperative)
                 currentMode = 0;
             setMenuText();
+       }
 
-          //  if (currentMode == Mode.Arcade)
-          ///  {
+       public override void LoadContent()
+       {
+           ContentManager content = ScreenManager.Game.Content;
+       }
+
+       //todo get highscores from database
+     //  public void returnHighScores()
+    //   {
+     //      if (currentMode == mode.Arcade)
+       //       {
                 //call arcade mode highscores
-            //    Read_Database();
-          //  }
-        //   else if (currentMode == Mode.Endless)
-         //   {
+         //       dataInt.ReadDatabase();
+        //    }
+       //   else if (currentMode == mode.Endless)
+      //     {
                 //call endless mode highscores
-           //     Read_Database();
-         //   }
-         //   else
+        //        dataInt.ReadDatabase();
+      //      }
+      //      else
                 //call cooperative mode highscores
-             //   Read_Database();
+       //         dataInt.ReadDatabase();
+     //  }
+
         }
-    }
+    
 }

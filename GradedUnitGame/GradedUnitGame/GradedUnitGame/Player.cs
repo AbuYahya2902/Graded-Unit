@@ -106,7 +106,6 @@ namespace GradedUnitGame
         public void Draw(SpriteBatch sBatch)
         {
             sBatch.Draw(playerSprite, playerCoords, Color.White);
-            
         }
 
     }
