@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>healthBar.bmp</Source>
+      <Name>healthBar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\healthBar.xnb</Output>
+      <Time>2015-03-13T18:43:08+00:00</Time>
+    </Item>
+    <Item>
+      <Source>MainFont.bmp</Source>
+      <Name>MainFont</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>FontTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\MainFont.xnb</Output>
+      <Time>2015-03-19T15:14:48+00:00</Time>
+    </Item>
+    <Item>
+      <Source>blank.png</Source>
+      <Name>blank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\blank.xnb</Output>
+      <Time>2015-03-21T15:35:32+00:00</Time>
+    </Item>
+    <Item>
+      <Source>gradient.png</Source>
+      <Name>gradient</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\gradient.xnb</Output>
+      <Time>2015-03-21T15:41:46+00:00</Time>
+    </Item>
+    <Item>
+      <Source>background.png</Source>
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2015-03-21T16:08:24+00:00</Time>
+    </Item>
+    <Item>
+      <Source>player1.png</Source>
+      <Name>player1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\player1.xnb</Output>
+      <Time>2015-03-22T17:31:26+00:00</Time>
+    </Item>
+    <Item>
+      <Source>player2.png</Source>
+      <Name>player2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\player2.xnb</Output>
+      <Time>2015-03-22T17:31:32+00:00</Time>
+    </Item>
+    <Item>
+      <Source>player3.png</Source>
+      <Name>player3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\player3.xnb</Output>
+      <Time>2015-03-22T17:31:38+00:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\</RootDirectory>
+      <LoggerRootDirectory>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2015-03-04T18:19:18.6777949+00:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

@@ -1,0 +1,5 @@
+c:\users\siobhan\documents\visual studio 2013\Projects\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\obj\x86\Debug\GradedUnitGameContent.contentprojResolveAssemblyReference.cache
+E:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\obj\x86\Debug\ResolveAssemblyReference.cache
+I:\Graded Unit\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\obj\x86\Debug\GradedUnitGameContent.contentprojResolveAssemblyReference.cache
+C:\Users\Siobhan\Desktop\wat\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\obj\x86\Debug\GradedUnitGameContent.contentprojResolveAssemblyReference.cache
+G:\Siobhan\wat\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\obj\x86\Debug\GradedUnitGameContent.contentprojResolveAssemblyReference.cache
