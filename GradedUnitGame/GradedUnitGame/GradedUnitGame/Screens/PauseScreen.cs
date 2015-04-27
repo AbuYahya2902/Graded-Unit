@@ -29,16 +29,17 @@ namespace GradedUnitGame
 
             MsgboxScreen confirmMsgBox = new MsgboxScreen(message);
 
-           // confirmMsgBox.Accepted += ConfirmMsgBoxAccepted;
+            confirmMsgBox.Accepted += ConfirmMsgBoxAccepted;
             ScreenManager.AddScreen(confirmMsgBox, ConPlayer);
         }
 
 
      //handles event for user accepts messagebox, then uses loading screen to transition back to main menu
-    //    void ConfirmMsgBoxAccepted(object sender, PlayerIndexEventArgs e)
-    //    {
-    //        Loading.Load(ScreenManager, false, null, new GameScreen(), new MainMenu());
-     //   }
+        void ConfirmMsgBoxAccepted(object sender, PlayerIndexEventArgs e)
+        {
+            Loading.Load(ScreenManager, false, null,
+                                               new MainMenu());
+        }
     
     }
 }
