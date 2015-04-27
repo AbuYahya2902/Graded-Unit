@@ -17,6 +17,7 @@ namespace GradedUnitGame
     /// </summary>
     class Lasers
     {
+        #region attributes
         //texture for the laser
         Texture2D laserTex;
 
@@ -45,6 +46,8 @@ namespace GradedUnitGame
         {
             return this.isActive;
         }
+
+        #endregion
 
         //sets initial values for all variables
         public Lasers(Texture2D texture, Rectangle screenBoundary)

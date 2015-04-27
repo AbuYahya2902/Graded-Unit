@@ -9,41 +9,36 @@ namespace GradedUnitGame
     {
         public PauseScreen() : base("Paused")
         {
-            // Create menu entries.
+            //creates menu entries
             MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game");
             MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
             
-            // Hook up menu event handlers.
+            //hook event handlers
             resumeGameMenuEntry.Selected += OnCancel;
             quitGameMenuEntry.Selected += QuitGameMenuEntrySel;
 
-            // Add entries to menu.
+            //adds menu entries 
             MenuEntries.Add(resumeGameMenuEntry);
             MenuEntries.Add(quitGameMenuEntry);
         }
 
-        /// <summary>
-        /// Event handler for when the Quit Game menu entry is selected.
-        /// </summary>
+      //handles event for when users selects quit game
         void QuitGameMenuEntrySel(object sender, PlayerIndexEventArgs e)
         {
             const string message = "Are you sure you want to quit?";
 
             MsgboxScreen confirmMsgBox = new MsgboxScreen(message);
 
-            confirmMsgBox.Accepted += ConfirmMsgBoxAccepted;
+           // confirmMsgBox.Accepted += ConfirmMsgBoxAccepted;
             ScreenManager.AddScreen(confirmMsgBox, ConPlayer);
         }
 
 
-        /// <summary>
-        /// Event handler for when the user selects ok on message box. This uses the loading screen to
-        /// transition from the game back to the main menu screen.
-        /// </summary>
-        void ConfirmMsgBoxAccepted(object sender, PlayerIndexEventArgs e)
-        {
-            Loading.Load(ScreenManager, false, null, new BgScreen(), new MainMenu());
-        }
-
+     //handles event for user accepts messagebox, then uses loading screen to transition back to main menu
+    //    void ConfirmMsgBoxAccepted(object sender, PlayerIndexEventArgs e)
+    //    {
+    //        Loading.Load(ScreenManager, false, null, new GameScreen(), new MainMenu());
+     //   }
+    
     }
 }

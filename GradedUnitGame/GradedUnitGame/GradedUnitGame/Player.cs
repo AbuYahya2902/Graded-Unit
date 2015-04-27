@@ -17,7 +17,7 @@ namespace GradedUnitGame
     /// </summary>
     class Player
     {
-
+        #region attributes
         //current position of the player
         public Vector2 playerCoords;
 
@@ -41,15 +41,23 @@ namespace GradedUnitGame
 
         //variable holding player speed
         float playerSpeed;
+        #endregion
 
-
+        #region getters
         //gets players current position
         public Vector2 getPcords()
         {
             return this.playerCoords;
         }
 
-        //sets initial values for all variables
+        //gets players boundary for collision detection
+        public Rectangle GetBoundary()
+        {
+            return new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
+        }
+        #endregion
+
+        //contructor, sets initial values for all variables
         public Player(Vector2 position, Texture2D playerSprite, Rectangle screenBoundary)
         {
             this.screenBoundary = screenBoundary;
@@ -61,6 +69,7 @@ namespace GradedUnitGame
             playerScore = 0;
         }
 
+        #region movement
         //handles moving the player left
         public void movePlayerLeft()
         {
@@ -80,13 +89,9 @@ namespace GradedUnitGame
             playerCoords += movement;
             ScrBoundaryCheck();
         }
+        #endregion
 
-        //gets players boundary for collision detection
-        public Rectangle GetBoundary()
-        {
-            return new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
-        }
-
+        #region update & draw
         //checks if the player has moved offscreen or not
         public void ScrBoundaryCheck()
         {
@@ -107,6 +112,6 @@ namespace GradedUnitGame
         {
             sBatch.Draw(playerSprite, playerCoords, Color.White);
         }
-
+        #endregion
     }
 }

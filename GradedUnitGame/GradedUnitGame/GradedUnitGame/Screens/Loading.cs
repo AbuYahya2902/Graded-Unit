@@ -11,7 +11,7 @@ namespace GradedUnitGame
 {
     class Loading : GameScreen
     {
-            #region Fields
+            #region attributes
 
         bool loadingIsSlow;
         bool otherScreensGone;
@@ -23,10 +23,7 @@ namespace GradedUnitGame
         #region Initialization
 
 
-        /// <summary>
-        /// The constructor is private: loading screens should
-        /// be activated via the static Load method instead.
-        /// </summary>
+        //constructor
         private Loading(ScreenManager screenManager, bool loadingIsSlow,
                               GameScreen[] screensToLoad)
         {
@@ -37,16 +34,14 @@ namespace GradedUnitGame
         }
 
 
-        /// <summary>
-        /// Activates the loading screen.
-        /// </summary>
+        //activates loading screen
         public static void Load(ScreenManager screenManager, bool loadingIsSlow, PlayerIndex? conPlayer, params GameScreen[] screensToLoad)
         {
-            // Tell all the current screens to transition off.
+            //tells the current screens to transition off
             foreach (GameScreen screen in screenManager.GetScreens())
                 screen.Exit();
 
-            // Create and activate the loading screen.
+            //creates and activate loading screen
             Loading loadingScreen = new Loading(screenManager, loadingIsSlow,screensToLoad);
             screenManager.AddScreen(loadingScreen, conPlayer);
         }
@@ -56,15 +51,12 @@ namespace GradedUnitGame
 
         #region Update and Draw
 
-        /// <summary>
-        /// Updates the loading screen.
-        /// </summary>
+        //updates loading screen
         public override void Update(GameTime gameTime, bool otherScreenFocus, bool coveredByOther)
         {
             base.Update(gameTime, otherScreenFocus, coveredByOther);
 
-            // If all the previous screens have finished transitioning
-            // off, it is time to actually perform the load.
+           //perform load if all screens have transitioned off
             if (otherScreensGone)      
             {
                 ScreenManager.RemoveScreen(this);
@@ -77,19 +69,16 @@ namespace GradedUnitGame
                     }
                 }
 
-                // ResetElapsedTime tells game timing to not try to catch up 
+                //ResetElapsedTime tells game timing to not try to catch up 
                 ScreenManager.Game.ResetElapsedTime();
             }
         }
 
 
-        /// <summary>
-        /// Draws the loading screen.
-        /// </summary>
+        //draws loading screen
         public override void Draw(GameTime gameTime)
         {
-            // If we are the only active screen, that means all the previous screens
-            // must have finished transitioning off. 
+            //if this is the only active screen, all others have transitioned off
             if ((ScreenState == ScreenState.Active) &&
                 (ScreenManager.GetScreens().Length == 1))
             {
@@ -97,9 +86,7 @@ namespace GradedUnitGame
             }
 
 
-            // The gameplay screen can take a while, so a loading message is displayed.
-            // Parameter indicates how long loading will take, in order to determine if the message should be shown
-
+            //indicates how long loading will take, and if the loading message should be shown
             if (loadingIsSlow)
             {
                 SpriteBatch sBatch = ScreenManager.SpriteBatch;
@@ -107,7 +94,7 @@ namespace GradedUnitGame
 
                 const string message = "Loading...";
 
-                // Center the text in the viewport.
+                //centers text
                 Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
                 Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
                 Vector2 textSize = font.MeasureString(message);
@@ -115,7 +102,7 @@ namespace GradedUnitGame
 
                 Color color = Color.White * TransAlpha;
 
-                // Draw the text.
+                //draws text
                 sBatch.Begin();
                 sBatch.DrawString(font, message, textPos, color);
                 sBatch.End();

@@ -17,6 +17,7 @@ namespace GradedUnitGame
     /// </summary>
     class Enemies
     {
+        #region attributes
         //current position of the enemies
         public Rectangle enemyPos;
 
@@ -28,6 +29,7 @@ namespace GradedUnitGame
 
         //how many scorepoints the enemy is worth
         public int scoreValue;
+        #endregion
 
         //sets initial values for all variables
         public Enemies(Texture2D sprite, Rectangle position, int scoreValue)

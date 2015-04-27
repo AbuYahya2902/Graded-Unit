@@ -19,25 +19,20 @@ namespace GradedUnitGame
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+        #region attributes
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
         SpriteBatch sBatch;
-       // Boolean sound = true;
-       // Boolean gameOver = false;
-        
+        #endregion 
 
-        
-
+        #region initilization
+        //preloads asset to reduce strain
         static readonly string[] preloadAssets =
         {
             "gradient",
         };
 
-
-        
-
-
-
+        //constructor
         public Game()
         {
             Content.RootDirectory = "Content";
@@ -54,11 +49,7 @@ namespace GradedUnitGame
            
         }
 
-        /// <summary>
-        /// Allows the game to perform initialization before starting
-        /// This is where it can query for required services and load non-graphic
-        /// related content.  
-        /// </summary>
+        //allows game to initilise
         protected void Initialise()
         {
             graphics.IsFullScreen = false;
@@ -67,10 +58,7 @@ namespace GradedUnitGame
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
+        //loads content for game, called once per game
         protected void LoadContent(Texture2D playerSprite)
         {
             foreach (string asset in preloadAssets)
@@ -78,51 +66,39 @@ namespace GradedUnitGame
                 Content.Load<object>(asset);
             }
 
-            // Create a new SpriteBatch, which can be used to draw textures.
+            //creates new spritebatch to draw textures
             sBatch = new SpriteBatch(GraphicsDevice);
 
             
-            //Contents Manager Loads images
+            //Content Manager loads images
             ContentManager aLoader = new ContentManager(this.Services);
-            
-           // playerSprite = aLoader.Load<Texture2D>("player1") as Texture2D;
-           // playerSprite.Load(this.Content);
-            
-
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is where all content ill be unloaded
-        /// </summary>
+       //unloads game content, called once per game
         protected override void UnloadContent()
         {
             
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
+        #endregion
+
+        #region update & draw
+        //allows game to run logic
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
+            //allows game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
-        //    UpdateLasers();
+        
         }
 
         
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
+        //draws game
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        //protected override 
         protected override void Draw(GameTime gameTime) 
         {
             GraphicsDevice.Clear(Color.Black);
@@ -130,13 +106,9 @@ namespace GradedUnitGame
     
         }
 
-    
-        #region gameEntry
         static class Program
         {
-            /// <summary>
-            /// The main entry point for the application.
-            /// </summary>
+            //main entry point
             static void Main()
             {
                 using (Game game = new Game())

@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace GradedUnitGame
 {
-        public enum ScreenState
+    public enum ScreenState
     {
         TransOn,
         Active,
@@ -23,21 +23,11 @@ namespace GradedUnitGame
         Hidden,
     }
 
-
-    /// <summary>
-    /// A screen is a single layer that has update and draw logic, and which
-    /// can be combined with other layers to build up a complex menu system.
-    /// For instance the main menu, the options menu, the "are you sure you
-    /// want to quit" message box, and the main game itself are all implemented
-    /// as screens.
-    /// </summary>
+    //a screen is a single layer with update and draw logic, and each screen can be combined to build up a menu system
     public abstract class GameScreen
     {
-        #region Properties
-        /// <summary>
-        /// indicates whether the screen is only a 
-        /// popup, in which case screens underneath  do not need to transition off
-        /// </summary>
+        #region attributes
+        //indicates if screen is a popup or not
         public bool IsPopup
         {
             get { return isPopup; }
@@ -45,12 +35,13 @@ namespace GradedUnitGame
         }
 
         bool isPopup = false;
+        #endregion
 
+       
 
-        /// <summary>
-        /// Indicates how long the screen takes to
-        /// transition on when it is activated.
-        /// </summary>
+       #region getters & setters
+
+        //indicates how long screen will take to transition on
         public TimeSpan TransOnTime
         {
             get { return transOnTime; }
@@ -60,10 +51,7 @@ namespace GradedUnitGame
         TimeSpan transOnTime = TimeSpan.Zero;
 
 
-        /// <summary>
-        /// Indicates how long the screen takes to
-        /// transition off when it is deactivated.
-        /// </summary>
+        //indicates how long it will the screen to transition off
         public TimeSpan TransOffTime
         {
             get { return transOffTime; }
@@ -73,10 +61,7 @@ namespace GradedUnitGame
         TimeSpan transOffTime = TimeSpan.Zero;
 
 
-        /// <summary>
-        /// Gets current screen transition, ranging
-        /// from 0 (fully active) to 1 (transitioned fully off)
-        /// </summary>
+        //gets current screen state 
         public float TransPos
         {
             get { return transPos; }
@@ -86,19 +71,14 @@ namespace GradedUnitGame
         float transPos = 1;
 
 
-        /// <summary>
-        /// Gets current alpha of the transition, ranging
-        /// from 1 (fully active) to 0 (transitioned fully off)
-        /// </summary>
+        //gets current transition alpha
         public float TransAlpha
         {
             get { return 1f - TransPos; }
         }
 
 
-        /// <summary>
-        /// Gets current screen transition state.
-        /// </summary>
+        //gets current screen transition state
         public ScreenState ScreenState
         {
             get { return screenState; }
@@ -108,10 +88,7 @@ namespace GradedUnitGame
         ScreenState screenState = ScreenState.TransOn;
 
 
-        /// <summary>
-        /// Indicates whether the screen is exiting
-        /// if true, screen will automatically remove itself once transition finishes.
-        /// </summary>
+        //indicates if screen is exiting; if true, screen will automatically remove itself
         public bool IsExiting
         {
             get { return isExiting; }
@@ -121,9 +98,7 @@ namespace GradedUnitGame
         bool isExiting = false;
 
 
-        /// <summary>
-        /// Checks whether this screen is active and can respond to user input.
-        /// </summary>
+        //indicates if screen is active and can accept userinput
         public bool IsActive
         {
             get
@@ -137,9 +112,7 @@ namespace GradedUnitGame
         bool otherScreenHasFocus;
 
 
-        /// <summary>
-        /// Gets the manager that this screen belongs to.
-        /// </summary>
+        //gets screen manager
         public ScreenManager ScreenManager
         {
             get { return screenManager; }
@@ -149,11 +122,7 @@ namespace GradedUnitGame
         ScreenManager screenManager;
 
 
-        /// <summary>
-        /// Gets the index of the player currently controlling this screen,
-        /// or null if it is accepting input from any player. This is used to lock
-        /// the game to a specific player profile. 
-        /// </summary>
+        //gets the playerindex of the controlling player, or null if it will accept input from any
         public PlayerIndex? ConPlayer
         {
             get { return conPlayer; }
@@ -165,31 +134,17 @@ namespace GradedUnitGame
 
         #endregion
 
-        #region Initialization
-
-
-        /// <summary>
-        /// Load graphics content for the screen.
-        /// </summary>
+        #region initialization
+        //loads graphics content
         public virtual void LoadContent() { }
 
 
-        /// <summary>
-        /// Unload content for the screen.
-        /// </summary>
+        //unloads content
         public virtual void UnloadContent() { }
-
-
         #endregion
 
-        #region Update and Draw
-
-
-        /// <summary>
-        /// Allows the screen to run logic, such as updating the transition position.
-        /// Unlike HandleInput, this method is called regardless of whether the screen
-        /// is active, hidden, or in the middle of a transition.
-        /// </summary>
+        #region update & draw
+        //allows screen to run logic
         public virtual void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                       bool coveredByOtherScreen)
         {
@@ -197,52 +152,50 @@ namespace GradedUnitGame
 
             if (isExiting)
             {
-                // If the screen is going away to die, it should transition off.
+                //if screen is exiting, it will transition off
                 screenState = ScreenState.TransOff;
 
                 if (!UpdateTrans(gameTime, transOffTime, 1))
                 {
-                    // When the transition finishes, remove the screen.
+                    //removes screen when transition is finished
                     ScreenManager.RemoveScreen(this);
                 }
             }
             else if (coveredByOtherScreen)
             {
-                // If the screen is covered by another, it should transition off.
+                //if screen is covered, transition off
                 if (UpdateTrans(gameTime, transOffTime, 1))
                 {
-                    // Still busy transitioning.
+                   //it is busy transitioning
                     screenState = ScreenState.TransOff;
                 }
                 else
                 {
-                    // Transition finished!
+                    //transition finished
                     screenState = ScreenState.Hidden;
                 }
             }
             else
             {
-                // Otherwise the screen should transition on and become active.
+                //else screen should transition on
                 if (UpdateTrans(gameTime, transOnTime, -1))
                 {
-                    // Still busy transitioning.
+                    //it is busy transitioning
                     screenState = ScreenState.TransOn;
                 }
                 else
                 {
-                    // Transition finished!
+                    //transition finished
                     screenState = ScreenState.Active;
                 }
             }
         }
 
 
-        /// <summary>
-        /// Helper for updating the screen transition position.
-        /// </summary>
+        //helper to update screen transition position
         bool UpdateTrans(GameTime gameTime, TimeSpan time, int direction)
         {
-            // How much should we move by?
+            //indicates how much to move by
             float transDelta;
 
             if (time == TimeSpan.Zero)
@@ -251,10 +204,10 @@ namespace GradedUnitGame
                 transDelta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds /
                                           time.TotalMilliseconds);
 
-            // Update the transition position.
+            //updates position
             transPos += transDelta * direction;
 
-            // Did we reach the end of the transition?
+            //indicates if the end of transition was reached
             if (((direction < 0) && (transPos <= 0)) ||
                 ((direction > 0) && (transPos >= 1)))
             {
@@ -262,34 +215,28 @@ namespace GradedUnitGame
                 return false;
             }
 
-            // Otherwise we are still busy transitioning.
+            //else still transitioning
             return true;
         }
 
 
-        /// <summary>
-        /// Allows the screen to handle user input. Unlike Update, this method
-        /// is only called when the screen is active, and not when some other
-        /// screen has taken the focus.
-        /// </summary>
+      //allows screen to handle user input, this is only called when screen is active
         public virtual void HandleInput(InputState input) { }
 
 
-        /// <summary>
-        /// This is called when the screen should draw itself.
-        /// </summary>
+        //draws screen
         public virtual void Draw(GameTime gameTime) { }
 
         public void Exit()
         {
             if (TransOffTime == TimeSpan.Zero)
             {
-                // If the screen has a zero transition time, remove it immediately.
+                //removes screen
                 ScreenManager.RemoveScreen(this);
             }
             else
             {
-                // Otherwise flag that it should transition off and then exit.
+                //flags screen to transition off
                 isExiting = true;
             }
         }

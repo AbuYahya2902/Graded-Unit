@@ -17,6 +17,7 @@ namespace GradedUnitGame
     /// </summary>
     class EndlessGameplay : GameScreen
     {
+        #region attributes
         ContentManager content;
         SpriteFont gameFont;
         
@@ -63,8 +64,8 @@ namespace GradedUnitGame
         int enemyWidth = 10;
         int enemyHeight = 4;
         float pauseAlpha;
+        #endregion
 
-        
         public EndlessGameplay()
         {
             TransOnTime = TimeSpan.FromSeconds(1.5);

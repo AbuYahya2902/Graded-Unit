@@ -12,22 +12,20 @@ namespace GradedUnitGame
 {
     class MsgboxScreen : GameScreen
     {
+        #region attributes
         string message;
         Texture2D gradientTexture;
+        #endregion
 
+        //event flags for the messagebox
         public event EventHandler<PlayerIndexEventArgs> Accepted;
         public event EventHandler<PlayerIndexEventArgs> Cancelled;
 
-        /// <summary>
-        /// Constructor 
-        /// </summary>
+       
         public MsgboxScreen(string message): this(message, true)
         { }
 
-
-        /// <summary>
-        /// Constructor for calling the msgbox
-        /// </summary>
+        //constructor for the messagebox
         public MsgboxScreen(string message, bool includeUsageText)
         {
             const string usageText = "\nA button, Space/Enter = Yes" +
@@ -45,9 +43,7 @@ namespace GradedUnitGame
         }
 
 
-        /// <summary>
-        /// Loads graphics content for this screen. 
-        /// </summary>
+        //loads content, called once per screen
         public override void LoadContent()
         {
             ContentManager content = ScreenManager.Game.Content;
@@ -55,16 +51,15 @@ namespace GradedUnitGame
             gradientTexture = content.Load<Texture2D>("./UI Misc/gradient");
         }
 
-        /// <summary>
-        /// Responds to user input, accepting or cancelling the message box.
-        /// </summary>
+        
+        //accepts userinput, accepting or cancelling  
         public override void HandleInput(InputState input)
         {
             PlayerIndex playerIndex;
 
             if (input.IsMenuSelect(ConPlayer, out playerIndex))
             {
-                // Raise the accepted event, then exit the message box.
+                //raise accepted event then exit messagebox
                 if (Accepted != null)
                 {
                     Accepted(this, new PlayerIndexEventArgs(playerIndex));
@@ -73,26 +68,25 @@ namespace GradedUnitGame
             }
             else if (input.IsMenuCancel(ConPlayer, out playerIndex))
             {
-                // Raise the cancelled event, then exit the message box.
+                //raise cancelled event then exit messagebox
                 if (Cancelled != null)
                     Cancelled(this, new PlayerIndexEventArgs(playerIndex));
 
                 Exit();
             }
         }
-            
-        /// <summary>
-        /// Draws the message box.
-        /// </summary>
+        #region draw
+        
+        //draws message box
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch sBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
 
-            // Darken any other screens drawn beneath popup.
+            //darken any screens beneath popup
             ScreenManager.FadeBackBufferToBlack(TransAlpha * 2 / 3);
 
-            // Center the message text in the viewport.
+            //center the message text in the screen
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Vector2 viewportSize = new Vector2 (viewport.Width, viewport.Height);
             Vector2 textSize = font.MeasureString(message);
@@ -106,20 +100,21 @@ namespace GradedUnitGame
                                                           (int)textSize.X + hPad * 2,
                                                           (int)textSize.Y + vPad * 2);
 
-            // Fade the popup alpha during transitions.
+            //fade the popup during screen transitions
             Color colour = Color.White * TransAlpha;
 
             sBatch.Begin();
 
-            // Draw the background rectangle.
+            //draw the background 
             sBatch.Draw(gradientTexture, backgroundRectangle, colour);
 
-            // Draw the message box text.
+            //draw the messagebox text
             sBatch.DrawString(font, message, textPosition, colour);
 
             sBatch.End();
         }
-}
+        #endregion
+    }
 }
 
 

@@ -17,6 +17,7 @@ namespace GradedUnitGame
     /// </summary>
     class CoopGameplay : GameScreen
     {
+        #region attributes
         SpriteFont gameFont;
         ContentManager content;
 
@@ -67,6 +68,8 @@ namespace GradedUnitGame
         DatabaseInt dataInt;
 
         float pauseAlpha;
+        #endregion
+
 
         public CoopGameplay()
         {

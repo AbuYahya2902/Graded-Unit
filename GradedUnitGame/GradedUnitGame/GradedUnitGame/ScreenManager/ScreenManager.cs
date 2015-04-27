@@ -13,6 +13,7 @@ namespace GradedUnitGame
 {
     public class ScreenManager : DrawableGameComponent
     {
+        #region attributes
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
@@ -23,24 +24,35 @@ namespace GradedUnitGame
         Texture2D blankTexture;
 
         bool isInitialized;
+        #endregion
 
-
+        #region getters 
+        //returns the spritebatch
         public SpriteBatch SpriteBatch
         {
             get { return sBatch; }
         }
       
-
+        //returns the game font
         public SpriteFont Font
         {
             get { return font; }
         }
 
+        //returns array of screens
+        public GameScreen[] GetScreens()
+        {
+            return screens.ToArray();
+        }
+
+        #endregion
+
+        //constructor
         public ScreenManager(Game game):base(game)
         {
         }
 
-
+        //initialises screen manager
         public override void Initialize()
         {
             base.Initialize();
@@ -51,14 +63,14 @@ namespace GradedUnitGame
 
         protected override void LoadContent()
         {
-            // Load content belonging to the screen manager.
+            //loads content belonging to screen maanger
             ContentManager content = Game.Content;
 
             sBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>("./UI Misc/MainFont");
             blankTexture = content.Load<Texture2D>("./UI Misc/blank");
 
-            // Tell each of the screens to load their content.
+            //tells screens to load content
             foreach (GameScreen screen in screens)
             {
                 screen.LoadContent();
@@ -67,13 +79,14 @@ namespace GradedUnitGame
 
         protected override void UnloadContent()
         {
-            // Tell each of the screens to unload their content.
+            //tells screens to unload
             foreach (GameScreen screen in screens)
             {
                 screen.UnloadContent();
             }
         }
 
+        #region update & draw
         /// <summary>
         /// Allows each screen to run logic.
         /// </summary>
@@ -82,8 +95,7 @@ namespace GradedUnitGame
             // Read the keyboard and gamepad.
             input.Update();
 
-            // Make a copy of the master screen list, to avoid confusion if
-            // the process of updating one screen adds or removes others.
+            //makes copy of master 
             screensToUpdate.Clear();
 
             foreach (GameScreen screen in screens)
@@ -92,22 +104,21 @@ namespace GradedUnitGame
             bool otherScreenHasFocus = !Game.IsActive;
             bool coveredByOtherScreen = false;
 
-            // Loop as long as there are screens waiting to be updated.
+            //loop whilst screens are waiting to update
             while (screensToUpdate.Count > 0)
             {
-                // Pop the topmost screen off the waiting list.
+                //pops top screen from waiting list
                 GameScreen screen = screensToUpdate[screensToUpdate.Count - 1];
 
                 screensToUpdate.RemoveAt(screensToUpdate.Count - 1);
 
-                // Update the screen.
+                //updates screen
                 screen.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
                 if (screen.ScreenState == ScreenState.TransOn ||
                     screen.ScreenState == ScreenState.Active)
                 {
-                    // If this is the first active screen we came across,
-                    // give it a chance to handle input.
+                    //lets screen accept input
                     if (!otherScreenHasFocus)
                     {
                         screen.HandleInput(input);
@@ -115,8 +126,7 @@ namespace GradedUnitGame
                         otherScreenHasFocus = true;
                     }
 
-                    // If this is an active non-popup, inform any subsequent
-                    // screens that they are covered by it.
+                    //tells screen if active popup
                     if (!screen.IsPopup)
                         coveredByOtherScreen = true;
                 }
@@ -124,9 +134,7 @@ namespace GradedUnitGame
         }
 
 
-        /// <summary>
-        /// Tells each screen to draw itself.
-        /// </summary>
+        //tells screen to draw itself
         public override void Draw(GameTime gameTime)
         {
             foreach (GameScreen screen in screens)
@@ -138,13 +146,14 @@ namespace GradedUnitGame
             }
         }
 
+        //adds screen to screen manager
         public void AddScreen(GameScreen screen, PlayerIndex? conPlayer)
         {
             screen.ConPlayer = conPlayer;
             screen.ScreenManager = this;
             screen.IsExiting = false;
 
-            // If we have a graphics device, tell the screen to load content.
+            //if graphics are initilized, tell screen load 
             if (isInitialized)
             {
                 screen.LoadContent();
@@ -154,12 +163,10 @@ namespace GradedUnitGame
         }
 
 
-        /// <summary>
-        /// Removes a screen from screen manager
-        /// </summary>
+       //removes screen from screen manager
         public void RemoveScreen(GameScreen screen)
         {
-            // If we have a graphics device, tell the screen to unload content.
+            //if graphics are initilized, tell screen to unload
             if (isInitialized)
             {
                 screen.UnloadContent();
@@ -170,19 +177,9 @@ namespace GradedUnitGame
         }
 
 
-        /// <summary>
-        /// Returns array holding all screens
-        /// </summary>
-        public GameScreen[] GetScreens()
-        {
-            return screens.ToArray();
-        }
+        
 
-
-        /// <summary>
-        /// Draws translucent black fullscreen sprite, used for fading
-        /// screens and for darkening background behind popups.
-        /// </summary>
+       //draws fullscreen translucent black background, for darkening and fading screens
         public void FadeBackBufferToBlack(float alpha)
         {
             Viewport viewport = GraphicsDevice.Viewport;
@@ -195,5 +192,6 @@ namespace GradedUnitGame
 
             sBatch.End();
         }
+        #endregion
     }
 }

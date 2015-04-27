@@ -15,9 +15,15 @@ using Microsoft.Xna.Framework.Media;
 namespace GradedUnitGame
 {
    class HighscoreScreen : MenuScreen
-    {
+   {
+       #region attributes
        MenuEntry modeEntry;
        DatabaseInt dataInt;
+       int rowDraw = 0;
+       int maxRows = 20;
+       string gameMode;
+       #endregion
+
        enum mode
        {
            Arcade,
@@ -32,6 +38,7 @@ namespace GradedUnitGame
         {
             modeEntry = new MenuEntry(string.Empty);
             setMenuText();
+            gameMode = "Arcade";
 
             MenuEntry back = new MenuEntry("Return");
 
@@ -40,6 +47,9 @@ namespace GradedUnitGame
 
             MenuEntries.Add(modeEntry);
             MenuEntries.Add(back);
+
+            dataInt = new DatabaseInt();
+            dataInt.ReadDatabase(gameMode);
         }
         void setMenuText()
         {
@@ -51,6 +61,21 @@ namespace GradedUnitGame
             currentMode++;
             if (currentMode > mode.Cooperative)
                 currentMode = 0;
+           if (currentMode == mode.Arcade)
+           {
+               gameMode = "Arcade";
+               dataInt.ReadDatabase(gameMode);
+           }
+           else if (currentMode == mode.Cooperative)
+           {
+               gameMode = "CoOp";
+               dataInt.ReadDatabase(gameMode);
+           }
+           else
+           {
+               gameMode = "Endless";
+               dataInt.ReadDatabase(gameMode);
+           }
             setMenuText();
        }
 
@@ -58,24 +83,6 @@ namespace GradedUnitGame
        {
            ContentManager content = ScreenManager.Game.Content;
        }
-
-       //todo get highscores from database
-     //  public void returnHighScores()
-    //   {
-     //      if (currentMode == mode.Arcade)
-       //       {
-                //call arcade mode highscores
-         //       dataInt.ReadDatabase();
-        //    }
-       //   else if (currentMode == mode.Endless)
-      //     {
-                //call endless mode highscores
-        //        dataInt.ReadDatabase();
-      //      }
-      //      else
-                //call cooperative mode highscores
-       //         dataInt.ReadDatabase();
-     //  }
 
         }
     

@@ -11,12 +11,14 @@ namespace GradedUnitGame
 {
     class MenuEntry
     {
+        #region attributes
         string text;
         float selFade;
         Vector2 pos;
+        #endregion
 
 
-
+        #region Getters & Setters
         public string Text
         {
             get { return text; }
@@ -27,6 +29,20 @@ namespace GradedUnitGame
             get { return pos; }
             set { pos = value; }
         }
+
+        //gets how wide the menuscreen is
+        public virtual int GetHeight(MenuScreen screen)
+        {
+            return screen.ScreenManager.Font.LineSpacing;
+        }
+
+        //gets width of the screen, used for centering
+        public virtual int GetWidth(MenuScreen screen)
+        {
+            return (int)screen.ScreenManager.Font.MeasureString(text).X;
+        }
+
+        #endregion
 
         public event EventHandler<PlayerIndexEventArgs> Selected;
         protected internal virtual void OnSelectEntry(PlayerIndex playerIndex)
@@ -40,7 +56,8 @@ namespace GradedUnitGame
             this.text = Text;
         }
 
-         public virtual void Update(MenuScreen screen, bool isSelected, GameTime gameTime)
+        #region draw & update
+        public virtual void Update(MenuScreen screen, bool isSelected, GameTime gameTime)
         {
             float fadeSpeed = (float)gameTime.ElapsedGameTime.TotalSeconds * 4;
 
@@ -50,21 +67,22 @@ namespace GradedUnitGame
                 selFade = Math.Max(selFade - fadeSpeed, 0);
         }
 
+         
          public virtual void Draw(MenuScreen screen, bool isSelected, GameTime gameTime)
         {
             Color color = isSelected ? Color.Purple : Color.White;
 
-            // Pulsate the size of the selected menu entry.
+            //pulsates the selected menu entry
             double time = gameTime.TotalGameTime.TotalSeconds;
 
             float pulsate = (float)Math.Sin(time * 6) + 1;
 
             float scale = 1 + pulsate * 0.05f * selFade;
 
-            // Modify the alpha to fade text out during transitions.
+            //fade text out during transitions
             color *= screen.TransAlpha;
 
-            // Draw text, centered on the middle of each line.
+            //draw text, centered on the middle of each line
             ScreenManager screenManager = screen.ScreenManager;
             SpriteBatch sBatch = screenManager.SpriteBatch;
             SpriteFont font = screenManager.Font;
@@ -74,24 +92,9 @@ namespace GradedUnitGame
             sBatch.DrawString(font, text, pos, color, 0,
                                    origin, scale, SpriteEffects.None, 0);
         }
+        #endregion
 
 
-         /// <summary>
-         /// Queries how much space menu entry requires.
-         /// </summary>
-         public virtual int GetHeight(MenuScreen screen)
-         {
-             return screen.ScreenManager.Font.LineSpacing;
-         }
-
-
-         /// <summary>
-         /// Queries how wide the entry is, used for centering on the screen.
-         /// </summary>
-         public virtual int GetWidth(MenuScreen screen)
-         {
-             return (int)screen.ScreenManager.Font.MeasureString(text).X;
-         }
 
     }
 }

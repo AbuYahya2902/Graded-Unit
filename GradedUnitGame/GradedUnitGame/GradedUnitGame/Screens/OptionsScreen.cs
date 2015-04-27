@@ -16,11 +16,14 @@ namespace GradedUnitGame
 {
     class OptionsScreen : MenuScreen
     {
+        #region attributes
         //initialises menu entries as MenuEntry class
         MenuEntry laserColourEntry;
         MenuEntry playerShipEntry;
         MenuEntry soundEntry;
-        
+        #endregion
+
+        #region menu enums
         //lasercolour options
       public enum laserColour
         {
@@ -45,12 +48,14 @@ namespace GradedUnitGame
             On,
             Off,
         }
+        #endregion
 
         //initialises the menu option
         public static laserColour currentColour = laserColour.Red;
         static playerShip currentShip = playerShip.One;
         static sound currentSound = sound.On;
 
+        //constructor
         public OptionsScreen()
             : base("Options")
         {

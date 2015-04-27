@@ -16,13 +16,17 @@ namespace GradedUnitGame
 {
     abstract class MenuScreen : GameScreen
     {
+        #region attributes
         ContentManager content;
         List<MenuEntry> menuEntries = new List<MenuEntry>();
         int selEntry = 0;
         string menuTitle;
         SoundEffect menuMusic;
-        SoundEffectInstance menuMusicInstance; 
+        SoundEffectInstance menuMusicInstance;
+        #endregion
 
+        #region initilization
+        //loads screen content
         public override void LoadContent()
         {
             if (content == null)
@@ -40,7 +44,7 @@ namespace GradedUnitGame
                 menuMusicInstance.Pause();
             }
         }
-
+        #endregion
 
         protected IList<MenuEntry> MenuEntries
         {
@@ -58,7 +62,7 @@ namespace GradedUnitGame
 
            public override void HandleInput(InputState input)
         {
-            // Move to previous menu entry
+            //moves to previous menu entry
             if (input.IsMenuUp(ConPlayer))
             {
                 selEntry--;
@@ -67,7 +71,7 @@ namespace GradedUnitGame
                     selEntry = menuEntries.Count - 1;
             }
 
-            // Move to next menu entry
+            //moves to next menu entry
             if (input.IsMenuDown(ConPlayer))
             {
                 selEntry++;
@@ -102,18 +106,20 @@ namespace GradedUnitGame
            {
                OnCancel(e.PlayerIndex);
            }
+
+           #region draw & update
            /// <summary>
-           /// Allows screen the chance to position menu entries. 
+           ///Allows screen to position menu entries 
            /// </summary>
            protected virtual void UpdateMenuEntryLocations()
            {
-               // Make the menu slide into place during transitions
+               //makes menu slide into place during transitions
                float transOffset = (float)Math.Pow(TransPos, 2);
 
-               // start at Y = 175; each X value is generated per entry
+               //start at Y = 175; each X value is generated per entry
                Vector2 pos = new Vector2(0f, 175f);
 
-               // update each menu entry's location in turn
+               //update each menu entry's location
                for (int i = 0; i < menuEntries.Count; i++)
                {
                    MenuEntry menuEntry = menuEntries[i];
@@ -126,24 +132,24 @@ namespace GradedUnitGame
                    else
                        pos.X += transOffset * 512;
 
-                   //set the entry's position
+                   //set entry's position
                    menuEntry.Pos = pos;
 
-                   // move down for the next entry the size of this entry
+                   //moves down for next entry the size of this entry
                    pos.Y += menuEntry.GetHeight(this);
                }
            }
 
 
            /// <summary>
-           /// Updates the menu.
+           /// updates the menu
            /// </summary>
            public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                           bool coveredByOtherScreen)
            {
                base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-               // Update each nested MenuEntry object.
+               //updates each nested MenuEntry 
                for (int i = 0; i < menuEntries.Count; i++)
                {
                    bool isSelected = IsActive && (i == selEntry);
@@ -154,11 +160,11 @@ namespace GradedUnitGame
 
 
            /// <summary>
-           /// Draws the menu.
+           /// draws the menu
            /// </summary>
            public override void Draw(GameTime gameTime)
            {
-               // make sure entries are in the right place before drawing them
+               //make sure entries are in the right place before drawing them
                UpdateMenuEntryLocations();
 
                GraphicsDevice graphics = ScreenManager.GraphicsDevice;
@@ -167,7 +173,7 @@ namespace GradedUnitGame
 
                sBatch.Begin();
 
-               // Draw each menu entry in turn.
+               //draw each menu entry
                for (int i = 0; i < menuEntries.Count; i++)
                {
                    MenuEntry menuEntry = menuEntries[i];
@@ -177,10 +183,10 @@ namespace GradedUnitGame
                    menuEntry.Draw(this, isSelected, gameTime);
                }
 
-               // Make the menu slide into place during transitions
+               //makes the menu slide into place during transitions
                float transOffset = (float)Math.Pow(TransPos, 2);
 
-               // Draw the menu title centered on the screen
+               //draws the menu title centered
                Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2, 80);
                Vector2 titleOrigin = font.MeasureString(menuTitle) / 2;
                Color titleColor = new Color(192, 192, 192) * TransAlpha;
@@ -193,5 +199,7 @@ namespace GradedUnitGame
 
                sBatch.End();
            }
+           #endregion
     }
+           
 }
