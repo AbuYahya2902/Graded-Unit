@@ -45,13 +45,19 @@ namespace GradedUnitGame
 
         #region getters
         //gets players current position
-        public Vector2 getPcords()
+        public Vector2 getPCoords()
         {
             return this.playerCoords;
         }
 
+        //sets players score
+        public void addScore(int playerScore)
+        {
+            this.playerScore += playerScore;
+        }
+
         //gets players boundary for collision detection
-        public Rectangle GetBoundary()
+        public Rectangle getBoundary()
         {
             return new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
         }

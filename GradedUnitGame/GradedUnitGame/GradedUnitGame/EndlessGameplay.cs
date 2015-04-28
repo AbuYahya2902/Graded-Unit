@@ -25,7 +25,7 @@ namespace GradedUnitGame
         Texture2D bossSprite;
         Texture2D bossLaserTex;
         //boss current position
-        Vector2 bossPos = new Vector2(100, 390);
+        Vector2 bossPos = new Vector2(350, 40);
         //holds the boss's current hp
         int bossCurrentHP = 100;
 
@@ -47,7 +47,7 @@ namespace GradedUnitGame
 
         //lasers
         Texture2D laserTex;
-        Lasers lasers;
+        Lasers playerLasers;
 
         //fire rate of the player
         TimeSpan fireDelay;
@@ -59,6 +59,7 @@ namespace GradedUnitGame
         Texture2D enemy2Sprite;
         Texture2D enemy3Sprite;
         Texture2D enemy4Sprite;
+        Lasers enemyLasers;
         Enemies[,] enemies;
         int scoreValue = 0;
         int enemyWidth = 10;
@@ -100,7 +101,7 @@ namespace GradedUnitGame
             //load player resources
             Texture2D playerSprite = this.content.Load<Texture2D>("./Players/Player1");
             laserTex = this.content.Load<Texture2D>("./Players/Player Laser");
-            Vector2 playerCoords = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            Vector2 playerCoords = new Vector2(400, 425);
             player = new Player(playerCoords, playerSprite, screenBoundary);
 
             //load sounds
@@ -125,7 +126,7 @@ namespace GradedUnitGame
             AddEnemy();
 
             //add lasers
-            lasers = new Lasers(laserTex, screenBoundary);
+            playerLasers = new Lasers(laserTex, screenBoundary);
 
             //plays music
             PlaySound();
@@ -179,7 +180,7 @@ namespace GradedUnitGame
                 }
                 for (int i = 0; i<enemyWidth; i++)
                 {
-                    enemies[i, e] = new Enemies(enemySprite, new Rectangle(i *  enemySprite.Width, e * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
+                    enemies[i, e] = new Enemies(enemySprite, new Rectangle((i + 5) * enemySprite.Width, (e + 1) * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
                 }
             }  
         }
@@ -187,11 +188,11 @@ namespace GradedUnitGame
         //adds the lasers
         private void AddLaser()
         {
-            if (!lasers.ifisActive())
-            lasers.Fire(player.GetBoundary());
+            if (!playerLasers.ifisActive())
+            playerLasers.Fire(player.getBoundary());
 
             //play player-laser sound only when player is firing a laser
-            if (lasers.ifisActive())
+            if (playerLasers.ifisActive())
             {
                 playerLaserSound.Play();
             }
@@ -206,14 +207,14 @@ namespace GradedUnitGame
         
         }
 
-        public void UpdateCollision()
+        private void UpdateCollision()
         {
-            // todo make rectangle for playerlaser position
-        // if (playerLaserBox.Intersects(enemyBox)) then kill enemy
-        // if (enemyLaserBox.Intersects(playerBox)) remove 1 charge from player shield
-        //if  (enemyBox.Intersects(screenBoundary?????)) enemy collides wth bottom of screen, gg 
-        
+            Rectangle enemyBox;
+            Rectangle enemyLaserBox;
+            Rectangle playerBox;
+            Rectangle playerLaserBox;
         }
+
 
         //updates the boss
         public void UpdateBoss(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
@@ -225,7 +226,12 @@ namespace GradedUnitGame
         {
             
             base.Update(gameTime, otherScreenHasFocus, false);
-            lasers.UpdatePosition();
+            playerLasers.UpdatePosition();
+
+            foreach (Enemies enemy in enemies)
+            {
+                enemy.CollisionCheck(playerLasers, player);
+            }
             //todo UpdateBoss();
             //todo UpdateEnemies();
             //todo UpdateCollision();
@@ -305,27 +311,39 @@ namespace GradedUnitGame
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             sBatch.Begin();
-            //todo display player current score
-            sBatch.DrawString(gameFont, "Score: " + player.playerScore, new Vector2(100,100), Color.HotPink);
+            //draws game background
             sBatch.Draw(bgTex, fullscreen, Color.White);
+            //display players current score
+            sBatch.DrawString(gameFont, "Score: " + player.playerScore, new Vector2(10, 1), Color.HotPink);
+            //display players current shields
+            sBatch.DrawString(gameFont, "Shields: " + player.playerShield, new Vector2(690, 1), Color.HotPink);
+            //draws the player
             player.Draw(sBatch);
+            //draws the array of enemies
             foreach (Enemies enemy in enemies)
                 enemy.draw(sBatch);
-            lasers.Draw(sBatch);
+            //draws the player lasers
+            playerLasers.Draw(sBatch);
+            //draws the boss
             sBatch.Draw(bossSprite, bossPos, Color.White);
+            //draws the enemies laser
+            //draws the boss laser
 
             //todo: end game screen + displayscore
             if (player.isAlive == false)
             {
-                sBatch.DrawString(gameFont, "Game Over!", new Vector2(viewport.Width/2,viewport.Height/2), Color.Coral);
-                sBatch.DrawString(gameFont, "Final Score: " + player.playerScore, new Vector2(450,300), Color.DeepPink);
+                //darkens down screen in background
+                float alpha = MathHelper.Lerp(1f - TransAlpha, 1f, pauseAlpha / 2);
+                ScreenManager.FadeBackBufferToBlack(alpha);
+                sBatch.DrawString(gameFont, "Game Over!", new Vector2(300, 280), Color.DeepPink);
+                sBatch.DrawString(gameFont, "Final Score: " + player.playerScore, new Vector2(300, 300), Color.DeepPink);
             }
             sBatch.End();
 
-            if (TransPos > 0 || pauseAlpha > 0)
+           if (TransPos > 0 || pauseAlpha > 0)
             {
+               //darkens down screen in background
                 float alpha = MathHelper.Lerp(1f - TransAlpha, 1f, pauseAlpha / 2);
-
                 ScreenManager.FadeBackBufferToBlack(alpha);
                 base.Draw(gameTime);
             }

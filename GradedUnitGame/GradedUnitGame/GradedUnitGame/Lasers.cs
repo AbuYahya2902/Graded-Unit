@@ -21,8 +21,6 @@ namespace GradedUnitGame
         //texture for the laser
         Texture2D laserTex;
 
-        
-
         //current position of the laser
         public Vector2 laserPos;
 
@@ -47,6 +45,10 @@ namespace GradedUnitGame
             return this.isActive;
         }
 
+        public void setisActive(bool isActive)
+        {
+            this.isActive = isActive;
+        }
         #endregion
 
         //sets initial values for all variables

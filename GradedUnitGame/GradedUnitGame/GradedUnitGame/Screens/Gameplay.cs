@@ -40,7 +40,7 @@ namespace GradedUnitGame
 
         //lasers
         Texture2D laserTex;
-        Lasers lasers;
+        Lasers playerLasers;
 
         //fire rate of the player
         TimeSpan fireDelay;
@@ -52,10 +52,12 @@ namespace GradedUnitGame
         Texture2D enemy2Sprite;
         Texture2D enemy3Sprite;
         Texture2D enemy4Sprite;
+        Lasers enemyLasers;
         Enemies[,] enemies;
         int scoreValue = 0;
         int enemyWidth = 10;
         int enemyHeight = 4;
+        
 
         float pauseAlpha;
         #endregion
@@ -97,7 +99,7 @@ namespace GradedUnitGame
             //load player resources
             Texture2D playerSprite = this.content.Load<Texture2D>("./Players/Player1");
             laserTex = this.content.Load<Texture2D>("./Players/Player Laser");
-            Vector2 playerCoords = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Width / 2);
+            Vector2 playerCoords = new Vector2(400, 425);
             player = new Player(playerCoords, playerSprite, screenBoundary);
             
             //load sounds
@@ -119,7 +121,7 @@ namespace GradedUnitGame
             AddEnemy();
 
             //add lasers
-            lasers = new Lasers(laserTex, screenBoundary);
+            playerLasers = new Lasers(laserTex, screenBoundary);
 
             //plays sound
             PlaySound();
@@ -173,7 +175,7 @@ namespace GradedUnitGame
                 }
                 for (int i = 0; i<enemyWidth; i++)
                 {
-                    enemies[i, e] = new Enemies(enemySprite, new Rectangle(i *  enemySprite.Width, e * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
+                    enemies[i, e] = new Enemies(enemySprite, new Rectangle((i+5) * enemySprite.Width,  (e+1)* enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
                 }
             } 
         }
@@ -181,11 +183,11 @@ namespace GradedUnitGame
         //adds the lasers
         private void AddLaser()
         {
-            if (!lasers.ifisActive())
-            lasers.Fire(player.GetBoundary());
+            if (!playerLasers.ifisActive())
+            playerLasers.Fire(player.getBoundary());
 
             //play player-laser sound only when player is firing a laser
-            if (lasers.ifisActive())
+            if (playerLasers.ifisActive())
             {
                 playerLaserSound.Play();
             }
@@ -208,15 +210,18 @@ namespace GradedUnitGame
         }
 
         //updates the game attributes
-        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                                       bool coveredByOtherScreen)
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
-            lasers.UpdatePosition();
+            playerLasers.UpdatePosition();
             //todo UpdateEnemies();
             //todo call UpdateCollision();
             //todo check if player.isAlive == false, then end game + prompt user to enter name + call dataInt.WriteDatabase()
-
+            
+            foreach(Enemies enemy in enemies)
+            {
+                enemy.CollisionCheck(playerLasers, player);
+            }
             // fade in or out if covered by pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
@@ -230,7 +235,7 @@ namespace GradedUnitGame
             Rectangle enemyLaserBox;
             Rectangle playerBox;
             Rectangle playerLaserBox;
-
+        }
 
             // todo make rectangle for playerlaser position
             // if (playerLaserBox.Intersects(enemyBox)) then kill enemy
@@ -262,7 +267,7 @@ namespace GradedUnitGame
                 }
 
             }*/
-        }
+        
 
        
         //handles the player input
@@ -329,15 +334,24 @@ namespace GradedUnitGame
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             sBatch.Begin();
-            //todo display player current score
-            sBatch.DrawString(gameFont, "Score: " + player.playerScore, new Vector2(100, 100), Color.HotPink);
+            //draws the game background
             sBatch.Draw(bgTex, fullscreen, Color.White);
+            //draws the player
             player.Draw(sBatch);
+            //draws the array of enemies
             foreach (Enemies enemy in enemies)
-            enemy.draw(sBatch);
-            lasers.Draw(sBatch);
+            {
+                    enemy.draw(sBatch);
+            }
+            //draws lasers
+            playerLasers.Draw(sBatch);
 
-            //todo: end game screen + displayscore
+            //display players current score
+            sBatch.DrawString(gameFont, "Score: " + player.playerScore, new Vector2(10,1), Color.HotPink);
+            //display players current shields
+            sBatch.DrawString(gameFont, "Shields: " + player.playerShield, new Vector2(690, 1), Color.HotPink);
+
+            //ends game screen + displays score
             if (player.isAlive == false)
             {
                 sBatch.DrawString(gameFont, "Game Over!", new Vector2(viewport.Width / 2, viewport.Height / 2), Color.Coral);

@@ -47,5 +47,18 @@ namespace GradedUnitGame
                 sBatch.Draw(enemySprite, enemyPos, Color.White);
             }
         }
+        public bool getIsAlive()
+        {
+            return isAlive;
+        }
+        public void CollisionCheck(Lasers laser, Player player)
+        {
+            if(isAlive && laser.Boundary.Intersects(enemyPos) && laser.ifisActive() )
+            {
+                isAlive = false;
+                laser.setisActive(false);
+                player.addScore(this.scoreValue);
+            }
+        }
     }
 }
