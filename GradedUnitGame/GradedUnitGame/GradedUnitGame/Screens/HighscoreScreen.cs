@@ -33,6 +33,7 @@ namespace GradedUnitGame
 
        static mode currentMode = mode.Arcade;
 
+       //constructor
         public HighscoreScreen() 
             : base("High Scores") 
         {

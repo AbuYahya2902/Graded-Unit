@@ -7,6 +7,7 @@ namespace GradedUnitGame
 {
     class PauseScreen : MenuScreen
     {
+        //constructor for the pause  screen
         public PauseScreen() : base("Paused")
         {
             //creates menu entries

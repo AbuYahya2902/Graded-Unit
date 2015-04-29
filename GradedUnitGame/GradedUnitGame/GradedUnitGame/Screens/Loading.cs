@@ -13,9 +13,12 @@ namespace GradedUnitGame
     {
             #region attributes
 
+        //tells the game if loading is slow, used to determine if message should be shown
         bool loadingIsSlow;
+        //tells the game if the other screens have transitioned off
         bool otherScreensGone;
 
+        //tells the game which screens to load
         GameScreen[] screensToLoad;
 
         #endregion

@@ -16,7 +16,7 @@ namespace GradedUnitGame
     /// <summary>
     /// this is the class for the main gameplay, arcade mode
     /// </summary>
-    class Gameplay : GameScreen
+    class ArcadeGameplay : GameScreen
     {
         #region attributes
         ContentManager content;
@@ -39,7 +39,7 @@ namespace GradedUnitGame
         SoundEffect explosions;
 
         //lasers
-        Texture2D laserTex;
+        Texture2D playerLaserTex;
         Lasers playerLasers;
 
         //fire rate of the player
@@ -63,7 +63,7 @@ namespace GradedUnitGame
         #endregion
 
         #region Initilization
-        public Gameplay()
+        public ArcadeGameplay()
         {
             TransOnTime = TimeSpan.FromSeconds(1.5);
             TransOffTime = TimeSpan.FromSeconds(0.5);
@@ -72,7 +72,6 @@ namespace GradedUnitGame
         //initializes attributes
         public void Initialize()
         {
-
             //sets time keeper to 0
             prevFireTime = TimeSpan.Zero;
 
@@ -98,7 +97,7 @@ namespace GradedUnitGame
 
             //load player resources
             Texture2D playerSprite = this.content.Load<Texture2D>("./Players/Player1");
-            laserTex = this.content.Load<Texture2D>("./Players/Player Laser");
+            playerLaserTex = this.content.Load<Texture2D>("./Players/Player Laser");
             Vector2 playerCoords = new Vector2(400, 425);
             player = new Player(playerCoords, playerSprite, screenBoundary);
             
@@ -121,7 +120,7 @@ namespace GradedUnitGame
             AddEnemy();
 
             //add lasers
-            playerLasers = new Lasers(laserTex, screenBoundary);
+            playerLasers = new Lasers(playerLaserTex, screenBoundary);
 
             //plays sound
             PlaySound();
@@ -130,10 +129,14 @@ namespace GradedUnitGame
             ScreenManager.Game.ResetElapsedTime();
         }
 
-        //plays game music if its not already playing
+        //plays game music if its not already playing, unless music is disabled in menu
         private void PlaySound()
         {
-            if (gameMusicInstance.State == SoundState.Stopped)
+            if (OptionsScreen.currentMusic == OptionsScreen.music.Off)
+            {
+                gameMusicInstance.Stop();
+            }
+            else if (OptionsScreen.currentMusic == OptionsScreen.music.On && gameMusicInstance.State == SoundState.Stopped)
             {
                 gameMusicInstance.IsLooped = true;
                 gameMusicInstance.Play();
@@ -148,7 +151,6 @@ namespace GradedUnitGame
         private void AddEnemy()
         {
             enemies = new Enemies[enemyWidth, enemyHeight];
-
             for (int e = 0; e < enemyHeight; e++)
             {
                 Texture2D enemySprite = enemy1Sprite;
@@ -175,16 +177,30 @@ namespace GradedUnitGame
                 }
                 for (int i = 0; i<enemyWidth; i++)
                 {
-                    enemies[i, e] = new Enemies(enemySprite, new Rectangle((i+5) * enemySprite.Width,  (e+1)* enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
+                    enemies[i, e] = new Enemies(enemySprite, new Rectangle((i+5) * enemySprite.Width,  (e+1)* enemySprite.Height, enemySprite.Width, enemySprite.Height), score, screenBoundary);
                 }
             } 
         }
+
+        //resets the enemies when they are killed
+        public void ResetEnemies()
+        {
+            int i = 0; 
+            foreach(Enemies enemy in enemies)
+            {
+                
+                enemy.setPosition(new Vector2((enemy1Sprite.Width + (i * 50)), (i * enemy1Sprite.Height)));
+                enemy.setIsAlive(true);
+                enemy.setMotion(new Vector2(1, 0));
+                i++;
+
+            }
 
         //adds the lasers
         private void AddLaser()
         {
             if (!playerLasers.ifisActive())
-            playerLasers.Fire(player.getBoundary());
+            playerLasers.Fire(player.GetBoundary());
 
             //play player-laser sound only when player is firing a laser
             if (playerLasers.ifisActive())
@@ -214,6 +230,7 @@ namespace GradedUnitGame
         {
             base.Update(gameTime, otherScreenHasFocus, false);
             playerLasers.UpdatePosition();
+             bool wall = false;
             //todo UpdateEnemies();
             //todo call UpdateCollision();
             //todo check if player.isAlive == false, then end game + prompt user to enter name + call dataInt.WriteDatabase()
@@ -221,7 +238,16 @@ namespace GradedUnitGame
             foreach(Enemies enemy in enemies)
             {
                 enemy.CollisionCheck(playerLasers, player);
+                wall = enemy.CollisionCheckWall();
+                enemy.moveEnemies();
             }
+
+            for (int i = 1; i >= 10;i++ )
+            { 
+                if (enemieskilled == i*(enemyWidth * enemyHeight))
+                { ResetEnemies(); }
+            }
+
             // fade in or out if covered by pause screen.
             if (coveredByOtherScreen)
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
@@ -298,12 +324,12 @@ namespace GradedUnitGame
 
                 if (keys.IsKeyDown(Keys.Left) || keys.IsKeyDown(Keys.A))
                 {
-                    player.movePlayerLeft();
+                    player.MovePlayerLeft();
                 }
 
                 if (keys.IsKeyDown(Keys.Right) || keys.IsKeyDown(Keys.D))
                 {
-                    player.movePlayerRight();
+                    player.MovePlayerRight();
                 }
 
                 Vector2 thumbstick = gamePad.ThumbSticks.Left;

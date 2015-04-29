@@ -16,6 +16,7 @@ namespace GradedUnitGame
 {
     class DatabaseInt
     {
+        #region attributes
 
         //initialises the datarow collection
         DataRowCollection dataRowC;
@@ -24,7 +25,7 @@ namespace GradedUnitGame
         int rowDraw = 0; 
 
         //initialises the dataset 
-        DataSet dataset = new DataSet();
+        DataSet dataSet = new DataSet();
 
         //initialises a new connection  
         OleDbConnection connection = null;
@@ -36,14 +37,14 @@ namespace GradedUnitGame
         OleDbTransaction transaction = null;
 
         //the integer for playerId
-        int playerId;
-
+        int playerID;
+        #endregion
 
         //checks how many rows are in the database 
-        public int checkRows()
+        public int CheckRows()
         {
             rowDraw = 1;
-            rowDraw = dataset.Tables["HighScores"].Rows.Count;
+            rowDraw = dataSet.Tables["HighScores"].Rows.Count;
             //returns how many rows to draw
             return rowDraw;
         }
@@ -58,7 +59,7 @@ namespace GradedUnitGame
         public void ReadDatabase(String gameMode)
         {
             //clears the dataset
-            dataset.Clear();
+            dataSet.Clear();
             string modeSelect;
             //displays the highscores for the chosen mode
             if (gameMode == "CoOp") 
@@ -90,7 +91,7 @@ namespace GradedUnitGame
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(accessCmd);
 
                 connection.Open();
-                dataAdapter.Fill(dataset, "HighScores");
+                dataAdapter.Fill(dataSet, "HighScores");
             }
             catch (Exception ex)
             {
@@ -103,7 +104,7 @@ namespace GradedUnitGame
             try
             {
                 //passes the values to the data collection
-                dataRowC = dataset.Tables["HighScores"].Rows;
+                dataRowC = dataSet.Tables["HighScores"].Rows;
                 rowDraw = 1;
             }
             catch (Exception x)
@@ -113,8 +114,6 @@ namespace GradedUnitGame
             }
           }
 
-        
-     
         //writes to the database
         private void WriteDatabase(String gameMode, int playerScore)
         {
@@ -141,7 +140,7 @@ namespace GradedUnitGame
                 //Values to be added
                 Cmd.Parameters.AddWithValue("@Score", playerScore);
                 Cmd.Parameters.AddWithValue("@Mode", gameMode);
-                Cmd.Parameters.AddWithValue("@id", playerId);
+                Cmd.Parameters.AddWithValue("@id", playerID);
                 //executes the command
                 Cmd.ExecuteNonQuery(); 
                 //commits changes
@@ -157,7 +156,7 @@ namespace GradedUnitGame
         }
 
         //adds the value name to the player database 
-        public void addNameDb(string playerName)
+        public void AddNameDB(string playerName)
         {
             try
             {
@@ -182,7 +181,7 @@ namespace GradedUnitGame
                 //starts query
                 Cmd.ExecuteNonQuery();
                 Cmd.CommandText = "SELECT @@IDENTITY;";
-                playerId = (int)Cmd.ExecuteScalar();
+                playerID = (int)Cmd.ExecuteScalar();
                 //commits
                 transaction.Commit();
             }

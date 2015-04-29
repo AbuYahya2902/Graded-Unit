@@ -1,2 +1,193 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GradedUnitGame.ArcadeGameplay" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQCEESDIIAAC4AYAQCQAAgAAgCAACABgQAAAAEBAAQ=</HashCode>
+      <FileName>Screens\Gameplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.HighscoreScreen" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="GradedUnitGame.HighscoreScreen.mode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Screens\HighscoreScreen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AABgAAAAAAAAAAAAAAAAABAAAAABgCAAAAAAAAIAAEQ=</HashCode>
+      <FileName>Screens\HighscoreScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.Loading" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAiAAAAAAAAgAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Loading.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.MainMenu" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAiAAAAAAAAAAAAAgQAAAAAAAAAAAAAIAAAABAAI=</HashCode>
+      <FileName>Screens\MainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.MenuEntry" Collapsed="true">
+    <Position X="13.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAIBAAACAAAAIQAAACEQAAAI=</HashCode>
+      <FileName>Screens\MenuEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.MenuScreen" Collapsed="true">
+    <Position X="1.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DQQCACGAQAAAAhAAAAAAgAAAAAAAAAAAAAAAAAQAAAQ=</HashCode>
+      <FileName>Screens\MenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.MsgboxScreen" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQQCAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAACQ=</HashCode>
+      <FileName>Screens\MsgboxScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.OptionsScreen" Collapsed="true">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="GradedUnitGame.OptionsScreen.laserColour" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Screens\OptionsScreen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="GradedUnitGame.OptionsScreen.playerShip" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Screens\OptionsScreen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="GradedUnitGame.OptionsScreen.music" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Screens\OptionsScreen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAggAAAAAAAAAAAAEAAAAoABAAAAIAAQAAAAAU=</HashCode>
+      <FileName>Screens\OptionsScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.PauseScreen" Collapsed="true">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAA=</HashCode>
+      <FileName>Screens\PauseScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.CoopGameplay" Collapsed="true">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAQiFESDIKAAC4AaAQCQAAgAAgCAACABgQCIAAEBAAQ=</HashCode>
+      <FileName>CoopGameplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.DatabaseInt" Collapsed="true">
+    <Position X="13.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAIgAAABAhAgCAABABAAAAAAABAAAAAAAAAAgAI=</HashCode>
+      <FileName>DatabaseInt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.EndlessGameplay" Collapsed="true">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQCFESDIKAAC4AYAQCQAAgAAgCAACABgQAIAAEBAAQ=</HashCode>
+      <FileName>EndlessGameplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.Enemies" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAACAAAAAIAAAAAAAAAAAAAAAAAQBFAAAA=</HashCode>
+      <FileName>Enemies.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.Game" Collapsed="true">
+    <Position X="8.75" Y="6.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="GradedUnitGame.Game.Program" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Game.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAYAEAAAAAAAAwAAAAQAAAAAAAAAAAgAAAAAAEAAAAQ=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.Lasers" Collapsed="true">
+    <Position X="12.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEBAQAAAAEAiACAAIAABAAAgAEABAAIAAAEAAABAA=</HashCode>
+      <FileName>Lasers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.Player" Collapsed="true">
+    <Position X="12.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAARAAAAMAgCAAAAAQAQEAAABAAABAwQAAAEAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.PlayerIndexEventArgs" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>PlayerIndexEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.GameScreen" Collapsed="true">
+    <Position X="7.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAGACAAEhAAgBAEAAACAAEBAgACAYAKgAGAEgABAQ=</HashCode>
+      <FileName>ScreenManager\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.InputState" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAUAAAAAAAAAAAAAAQAAFYAAAAAEAIAAAEAAAAEA=</HashCode>
+      <FileName>ScreenManager\InputState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.ScreenManager" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAEAAgAAAgAwAAAAQAAAAAAAAAiBAERAAAgAACCAQ=</HashCode>
+      <FileName>ScreenManager\ScreenManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="GradedUnitGame.ScreenState" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAACAAAAAAAAAAgAAAAAAAEAAA=</HashCode>
+      <FileName>ScreenManager\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

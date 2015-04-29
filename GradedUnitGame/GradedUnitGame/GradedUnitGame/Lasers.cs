@@ -51,6 +51,7 @@ namespace GradedUnitGame
         }
         #endregion
 
+        #region initilization
         //sets initial values for all variables
         public Lasers(Texture2D texture, Rectangle screenBoundary)
         {
@@ -65,8 +66,10 @@ namespace GradedUnitGame
            // this.colour = OptionsScreen.currentColour;
 
         }
+        #endregion
 
-        //updates the lasers current position
+       #region draw&update
+       //updates the lasers current position
         public void UpdatePosition()
         {
             laserPos += movement *= laserSpeed;
@@ -114,4 +117,5 @@ namespace GradedUnitGame
                 sBatch.Draw(laserTex, laserPos, Color.DarkSalmon);
         }
     }
+       #endregion
 }

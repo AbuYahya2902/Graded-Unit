@@ -19,11 +19,14 @@ namespace GradedUnitGame
 
 
         #region Getters & Setters
+        //gets and sets the text for the menu entry
         public string Text
         {
             get { return text; }
             set { text = value;  }
         }
+
+        //gets and sets the position for the menu entry
         public Vector2 Pos
         {
             get { return pos; }
@@ -44,6 +47,7 @@ namespace GradedUnitGame
 
         #endregion
 
+        //event handler for entry selection
         public event EventHandler<PlayerIndexEventArgs> Selected;
         protected internal virtual void OnSelectEntry(PlayerIndex playerIndex)
         {
@@ -51,6 +55,7 @@ namespace GradedUnitGame
                 Selected(this, new PlayerIndexEventArgs(playerIndex));
         }
 
+        //constructor
         public MenuEntry(string Text)
         {
             this.text = Text;

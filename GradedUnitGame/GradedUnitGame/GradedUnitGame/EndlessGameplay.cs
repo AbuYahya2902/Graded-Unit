@@ -67,12 +67,14 @@ namespace GradedUnitGame
         float pauseAlpha;
         #endregion
 
+        //constructor
         public EndlessGameplay()
         {
             TransOnTime = TimeSpan.FromSeconds(1.5);
             TransOffTime = TimeSpan.FromSeconds(0.5);
         }
 
+        #region initilization
         //sets initial values for all variables
         public void Initialize()
         {
@@ -134,11 +136,18 @@ namespace GradedUnitGame
             //reset time so it doesnt try to catch up
             ScreenManager.Game.ResetElapsedTime();
         }
+        #endregion
 
-        //plays game music if its not already playing
+        #region draw&update
+
+        //plays game music if its not already playing, unless music is disabled in menu
         private void PlaySound()
         {
-            if (gameMusicInstance.State == SoundState.Stopped)
+            if (OptionsScreen.currentMusic == OptionsScreen.music.Off)
+            {
+                gameMusicInstance.Stop();
+            }
+            else if (OptionsScreen.currentMusic == OptionsScreen.music.On && gameMusicInstance.State == SoundState.Stopped)
             {
                 gameMusicInstance.IsLooped = true;
                 gameMusicInstance.Play();
@@ -189,7 +198,7 @@ namespace GradedUnitGame
         private void AddLaser()
         {
             if (!playerLasers.ifisActive())
-            playerLasers.Fire(player.getBoundary());
+            playerLasers.Fire(player.GetBoundary());
 
             //play player-laser sound only when player is firing a laser
             if (playerLasers.ifisActive())
@@ -278,12 +287,12 @@ namespace GradedUnitGame
 
                 if (keys.IsKeyDown(Keys.Left) || keys.IsKeyDown(Keys.A))
                 {
-                    player.movePlayerLeft();
+                    player.MovePlayerLeft();
                 }
 
                 if (keys.IsKeyDown(Keys.Right) || keys.IsKeyDown(Keys.D))
                 {
-                    player.movePlayerRight();
+                    player.MovePlayerRight();
                 }
 
                 Vector2 thumbstick = gamePad.ThumbSticks.Left;
@@ -350,4 +359,5 @@ namespace GradedUnitGame
 
         }
     }
+        #endregion
 }

@@ -30,7 +30,7 @@ namespace GradedUnitGame
         //boolean storing if player is currently alive; used to determine gameover
         public bool isAlive;
 
-        //current level of the player's shield between 2 and 0, if this reaches 0, the player shield is down
+        //current level of the player's shield between 3 and 0, if this reaches 0, the player shield is down
         public int playerShield;
 
         //tracks the players current score
@@ -45,24 +45,25 @@ namespace GradedUnitGame
 
         #region getters
         //gets players current position
-        public Vector2 getPCoords()
+        public Vector2 GetPCoords()
         {
             return this.playerCoords;
         }
 
         //sets players score
-        public void addScore(int playerScore)
+        public void AddScore(int playerScore)
         {
             this.playerScore += playerScore;
         }
 
         //gets players boundary for collision detection
-        public Rectangle getBoundary()
+        public Rectangle GetBoundary()
         {
             return new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
         }
         #endregion
 
+        #region initilization
         //contructor, sets initial values for all variables
         public Player(Vector2 position, Texture2D playerSprite, Rectangle screenBoundary)
         {
@@ -74,10 +75,11 @@ namespace GradedUnitGame
             playerShield = 2;
             playerScore = 0;
         }
+        #endregion
 
         #region movement
         //handles moving the player left
-        public void movePlayerLeft()
+        public void MovePlayerLeft()
         {
             movement = Vector2.Zero;
             movement.X = -1;
@@ -87,7 +89,7 @@ namespace GradedUnitGame
         }
 
         //handles moving the player right
-        public void movePlayerRight()
+        public void MovePlayerRight()
         {
             movement = Vector2.Zero;
             movement.X = +1;

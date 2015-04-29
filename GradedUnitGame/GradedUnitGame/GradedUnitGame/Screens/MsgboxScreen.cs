@@ -13,7 +13,9 @@ namespace GradedUnitGame
     class MsgboxScreen : GameScreen
     {
         #region attributes
+        //holds the message to be displayed
         string message;
+        //holds the texture for the gradient used in the messagebox background
         Texture2D gradientTexture;
         #endregion
 
@@ -51,7 +53,7 @@ namespace GradedUnitGame
             gradientTexture = content.Load<Texture2D>("./UI Misc/gradient");
         }
 
-        
+        #region draw&update
         //accepts userinput, accepting or cancelling  
         public override void HandleInput(InputState input)
         {
@@ -75,7 +77,6 @@ namespace GradedUnitGame
                 Exit();
             }
         }
-        #region draw
         
         //draws message box
         public override void Draw(GameTime gameTime)

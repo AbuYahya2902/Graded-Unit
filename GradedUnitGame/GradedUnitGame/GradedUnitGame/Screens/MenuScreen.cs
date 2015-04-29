@@ -17,10 +17,19 @@ namespace GradedUnitGame
     abstract class MenuScreen : GameScreen
     {
         #region attributes
+        //loads a new content manager for the menu content
         ContentManager content;
+
+        //creates the menu entries as a new menu entry list
         List<MenuEntry> menuEntries = new List<MenuEntry>();
+
+        //holds the integer for the entry selection
         int selEntry = 0;
+
+        //holds the title of the menu
         string menuTitle;
+
+        //holds the menu music
         SoundEffect menuMusic;
         SoundEffectInstance menuMusicInstance;
         #endregion
@@ -34,7 +43,12 @@ namespace GradedUnitGame
             menuMusic = this.content.Load<SoundEffect>("./Sounds/DST-2ndBallad");
             menuMusicInstance = menuMusic.CreateInstance();
 
-            if (menuMusicInstance.State == SoundState.Stopped)
+            //plays the menu music, unless music is disabled in menu
+            if (OptionsScreen.currentMusic == OptionsScreen.music.Off)
+            {
+                menuMusicInstance.Stop();
+            }
+            else if (OptionsScreen.currentMusic == OptionsScreen.music.On && menuMusicInstance.State == SoundState.Stopped)
             {
                 menuMusicInstance.IsLooped = true;
                 menuMusicInstance.Play();
@@ -51,6 +65,7 @@ namespace GradedUnitGame
             get { return menuEntries; }
         }
 
+        //constructor for the menu screen
         public MenuScreen(string menuTitle)
         {
             this.menuTitle = menuTitle;
@@ -59,7 +74,7 @@ namespace GradedUnitGame
             TransOffTime = TimeSpan.FromSeconds(0.5);
         }
 
-
+        //Handles player input for the menu screens
            public override void HandleInput(InputState input)
         {
             //moves to previous menu entry
@@ -92,16 +107,19 @@ namespace GradedUnitGame
             }
         }
 
+           //Event handler for when the player selects a menu entry
            protected virtual void OnSelectEntry(int entryIndex, PlayerIndex playerIndex)
            {
                menuEntries[entryIndex].OnSelectEntry(playerIndex);
            }
 
+           //event handler for when the player selects cancel
            protected virtual void OnCancel(PlayerIndex playerIndex)
            {
                Exit();
            }
 
+        //event handler for when the player selects cancel
            protected void OnCancel(object sender, PlayerIndexEventArgs e)
            {
                OnCancel(e.PlayerIndex);

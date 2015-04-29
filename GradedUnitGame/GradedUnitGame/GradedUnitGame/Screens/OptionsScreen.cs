@@ -18,9 +18,9 @@ namespace GradedUnitGame
     {
         #region attributes
         //initialises menu entries as MenuEntry class
-        MenuEntry laserColourEntry;
-        MenuEntry playerShipEntry;
-        MenuEntry soundEntry;
+        public MenuEntry laserColourEntry;
+        public MenuEntry playerShipEntry;
+        public MenuEntry musicEntry;
         #endregion
 
         #region menu enums
@@ -35,7 +35,7 @@ namespace GradedUnitGame
         }
 
         //playership options
-        enum playerShip
+        public enum playerShip
         {
             One,
             Two,
@@ -43,17 +43,18 @@ namespace GradedUnitGame
         }
 
         //sound options
-        enum sound
+        public enum music
         {
             On,
             Off,
         }
         #endregion
 
+        #region Initilization
         //initialises the menu option
         public static laserColour currentColour = laserColour.Red;
-        static playerShip currentShip = playerShip.One;
-        static sound currentSound = sound.On;
+        public static playerShip currentShip = playerShip.One;
+        public static music currentMusic = music.On;
 
         //constructor
         public OptionsScreen()
@@ -61,74 +62,57 @@ namespace GradedUnitGame
         {
             laserColourEntry = new MenuEntry(string.Empty);
             playerShipEntry = new MenuEntry(string.Empty);
-            soundEntry = new MenuEntry(string.Empty);
+            musicEntry = new MenuEntry(string.Empty);
 
-            setMenuText();
+            SetMenuText();
 
             MenuEntry back = new MenuEntry("Return");
 
-            laserColourEntry.Selected += laserColourEntrySel;
-            playerShipEntry.Selected += playerShipEntrySel;
-            soundEntry.Selected += soundEntrySel;
+            laserColourEntry.Selected += LaserColourEntrySel;
+            playerShipEntry.Selected += PlayerShipEntrySel;
+            musicEntry.Selected += MusicEntrySel;
             back.Selected += OnCancel;
 
             MenuEntries.Add(laserColourEntry);
             MenuEntries.Add(playerShipEntry);
-            MenuEntries.Add(soundEntry);
+            MenuEntries.Add(musicEntry);
             MenuEntries.Add(back);
             
         }
 
-        //todo, toggle sound mutes all sounds
-      // private void toggleSound()
-       // {
-          //   if (currentSound = sound.Off)
-         //   {
-          //      playMusic = false;
-                //set sound to OFF
-         //   }
-         //  else if (sound currentSound = sound.On)
-          //  {
-           //     playMusic = true;
-                //set sound to ON
-         //   }
-         //   return playMusic;
-         // }
-
-
         //sets the menu text
-            void setMenuText()
+            void SetMenuText()
             {
                 laserColourEntry.Text = "Laser Colour: " + currentColour;
                 playerShipEntry.Text = "Ship Design: " + currentShip;
-                soundEntry.Text = "Sound: " + currentSound;
+                musicEntry.Text = "Music: " + currentMusic;
             }
 
         //toggles through lasercolour options when selected
-        void laserColourEntrySel(object sender, PlayerIndexEventArgs e)
+        void LaserColourEntrySel(object sender, PlayerIndexEventArgs e)
             {
                 currentColour++;
                 if (currentColour > laserColour.DrkSalmon)
                     currentColour = 0;
-                setMenuText();
+                SetMenuText();
             }
 
         //toggles through the playership option when selected
-        void playerShipEntrySel(object sender, PlayerIndexEventArgs e)
+        void PlayerShipEntrySel(object sender, PlayerIndexEventArgs e)
         {
             currentShip++;
             if (currentShip > playerShip.Three)
                 currentShip = 0;
-            setMenuText();
+            SetMenuText();
         }
 
         //if player selects the sound option, it will toggle between on and off
-        void soundEntrySel(object sender, PlayerIndexEventArgs e)
+        void MusicEntrySel(object sender, PlayerIndexEventArgs e)
         {
-            currentSound++;
-            if (currentSound > sound.Off)
-                currentSound = 0;
-            setMenuText();
+            currentMusic++;
+            if (currentMusic > music.Off)
+                currentMusic = 0;
+            SetMenuText();
         }
 
         //loads content, this is called once per screen
@@ -139,9 +123,6 @@ namespace GradedUnitGame
 
         //todo change playersprite draw to the playership option
         //todo change lasersprite color to lasercolour option
-       
-        
-
-        }
-    
+    }
+        #endregion
 }
