@@ -40,12 +40,12 @@ namespace GradedUnitGame
         float laserSpeed = 1.05f;
 
         //returns if laser is currently active
-        public bool ifisActive()
+        public bool IfIsActive()
         {
             return this.isActive;
         }
 
-        public void setisActive(bool isActive)
+        public void SetIsActive(bool isActive)
         {
             this.isActive = isActive;
         }

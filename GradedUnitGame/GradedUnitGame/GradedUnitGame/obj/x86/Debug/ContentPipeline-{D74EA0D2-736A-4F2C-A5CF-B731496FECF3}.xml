@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\healthBar.xnb</Output>
-      <Time>2015-03-13T16:43:08+00:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\healthBar.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>UI Misc\MainFont.bmp</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>FontTextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\MainFont.xnb</Output>
-      <Time>2015-03-19T13:14:48+00:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\MainFont.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>UI Misc\blank.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\blank.xnb</Output>
-      <Time>2015-03-21T13:35:32+00:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\blank.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>UI Misc\gradient.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\gradient.xnb</Output>
-      <Time>2015-03-21T13:41:46+00:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\gradient.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Boss.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Boss.xnb</Output>
-      <Time>2015-04-16T22:15:02+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Boss.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Boss Laser.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Boss Laser.xnb</Output>
-      <Time>2015-04-16T23:27:48+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Boss Laser.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Mob Laser.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob Laser.xnb</Output>
-      <Time>2015-04-16T23:27:52+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob Laser.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>UI Misc\earth.png</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\earth.xnb</Output>
-      <Time>2015-04-21T16:57:06.4812598+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\UI Misc\earth.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Players\Player1.png</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player1.xnb</Output>
-      <Time>2015-04-21T23:20:22.8855788+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player1.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Players\Player2.png</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player2.xnb</Output>
-      <Time>2015-04-21T23:20:29.4679553+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player2.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Players\Player3.png</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player3.xnb</Output>
-      <Time>2015-04-21T23:20:32.9811563+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player3.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Mob1.png</Source>
@@ -106,8 +106,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob1.xnb</Output>
-      <Time>2015-04-21T23:53:14.4223443+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob1.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Mob2.png</Source>
@@ -115,8 +115,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob2.xnb</Output>
-      <Time>2015-04-21T23:53:20.2256762+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob2.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Mob3.png</Source>
@@ -124,8 +124,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob3.xnb</Output>
-      <Time>2015-04-21T23:53:25.5049782+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob3.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Mob4.png</Source>
@@ -133,8 +133,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob4.xnb</Output>
-      <Time>2015-04-21T23:53:28.8811713+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Mobs\Mob4.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Players\Player Laser.png</Source>
@@ -142,8 +142,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player Laser.xnb</Output>
-      <Time>2015-04-22T00:54:45.7934786+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Players\Player Laser.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\DST-2ndBallad.wav</Source>
@@ -151,8 +151,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\DST-2ndBallad.xnb</Output>
-      <Time>2015-04-20T19:51:55.708023+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\DST-2ndBallad.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\DST-CryolithicBreak.wav</Source>
@@ -160,8 +160,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\DST-CryolithicBreak.xnb</Output>
-      <Time>2015-04-20T19:52:01.2753414+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\DST-CryolithicBreak.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\happypew.wav</Source>
@@ -169,8 +169,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\happypew.xnb</Output>
-      <Time>2015-04-20T19:52:07.316687+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\happypew.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\sadpew.wav</Source>
@@ -178,8 +178,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\sadpew.xnb</Output>
-      <Time>2015-04-20T19:52:17.6512781+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\sadpew.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Explosion.wav</Source>
@@ -187,8 +187,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\Explosion.xnb</Output>
-      <Time>2015-04-20T19:52:27.2638279+01:00</Time>
+      <Output>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\Sounds\Explosion.xnb</Output>
+      <Time>2015-04-28T17:37:56+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -197,10 +197,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Siobhan\Documents\GitHub\Graded-Unit\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGameContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\20035920.GLASGOWCLYDE\Desktop\whyme\Graded-Unit-master\GradedUnitGame\GradedUnitGame\GradedUnitGame\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -229,7 +229,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2015-03-13T18:14:18.5963394+00:00</Value>
+        <Value>2015-03-25T18:30:31.9821649+00:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 #endregion
 
 namespace GradedUnitGame
@@ -57,12 +58,12 @@ namespace GradedUnitGame
             enemyMotion = new Vector2(1, 0);
         }
 
-        public void setMotion(Vector2 enemyMotion)
+        public void SetMotion(Vector2 enemyMotion)
         {
             this.enemyMotion = enemyMotion;
         }
 
-        public void setEnemiesKilled(int enemiesKilled)
+        public void SetEnemiesKilled(int enemiesKilled)
         {
             this.enemiesKilled = enemiesKilled;
         }
@@ -70,26 +71,27 @@ namespace GradedUnitGame
         #endregion
 
         #region draw&update
-        public void draw(SpriteBatch sBatch)
+        public void Draw(SpriteBatch sBatch)
         {
             if (isAlive)
             {
                 sBatch.Draw(enemySprite, enemyPos, Color.White);
             }
         }
-        public bool getIsAlive()
+        public bool GetIsAlive()
         {
             return isAlive;
         }
-        public void CollisionCheck(Lasers laser, Player player)
+        public int CollisionCheck(Lasers laser, Player player)
         {
-            if(isAlive && laser.Boundary.Intersects(boundary) && laser.ifisActive() )
+            if(isAlive && laser.Boundary.Intersects(boundary) && laser.IfsActive() )
             {
                 isAlive = false;
-                laser.setisActive(false);
+                laser.SetIsActive(false);
                 player.AddScore(this.scoreValue);
-                enemiesKilled += 1;
+                return 1;
             }
+            return 0; 
         }
 
         public bool CollisionCheckWall()
@@ -101,9 +103,10 @@ namespace GradedUnitGame
             return false;
         }
 
-        public void moveEnemies()
+        public void MoveEnemies()
         {
             enemyPos += (enemyMotion * enemySpeed);
+            Debug.WriteLine(enemyMotion + enemyPos);
             //Debug.WriteLine(enemyPos);
             if ((enemyPos.X) <= 0 || enemyPos.X + enemySprite.Width >= screenBoundary.Width)
             {
@@ -114,19 +117,26 @@ namespace GradedUnitGame
             boundary = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemySprite.Width, enemySprite.Height);
         }
 
-        public void moveEnemiesdl()
+        public void MoveEnemiesdl()
         {
             enemyPos.Y += enemySpeed;
             enemyMotion.X *= -1;
             boundary = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemySprite.Width, enemySprite.Height);
         }
 
-        public void setPosition(Vector2 enemyPos)
+        public void SetPosition(Vector2 enemyPos)
         {
             this.enemyPos = enemyPos;
             boundary = boundary = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemySprite.Width, enemySprite.Height);
+            Debug.WriteLine(this.enemyPos.ToString() + this.isAlive.ToString()
+            +this.enemyMotion);
 
         }
+        public void SetIsAlive(bool IsAlive)
+        {
+            this.isAlive = IsAlive;
+        }
+    
     }
 #endregion
 }

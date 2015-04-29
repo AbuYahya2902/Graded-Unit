@@ -189,7 +189,7 @@ namespace GradedUnitGame
                 }
                 for (int i = 0; i<enemyWidth; i++)
                 {
-                    enemies[i, e] = new Enemies(enemySprite, new Rectangle((i + 5) * enemySprite.Width, (e + 1) * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
+                   // enemies[i, e] = new Enemies(enemySprite, new Rectangle((i + 5) * enemySprite.Width, (e + 1) * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
                 }
             }  
         }
@@ -197,11 +197,11 @@ namespace GradedUnitGame
         //adds the lasers
         private void AddLaser()
         {
-            if (!playerLasers.ifisActive())
+            if (!playerLasers.IfIsActive())
             playerLasers.Fire(player.GetBoundary());
 
             //play player-laser sound only when player is firing a laser
-            if (playerLasers.ifisActive())
+            if (playerLasers.IfIsActive())
             {
                 playerLaserSound.Play();
             }
@@ -330,7 +330,7 @@ namespace GradedUnitGame
             player.Draw(sBatch);
             //draws the array of enemies
             foreach (Enemies enemy in enemies)
-                enemy.draw(sBatch);
+                enemy.Draw(sBatch);
             //draws the player lasers
             playerLasers.Draw(sBatch);
             //draws the boss
