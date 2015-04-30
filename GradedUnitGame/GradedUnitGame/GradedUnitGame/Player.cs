@@ -29,6 +29,7 @@ namespace GradedUnitGame
 
         //boolean storing if player is currently alive; used to determine gameover
         public bool isAlive;
+        Rectangle boundary;
 
         //current level of the player's shield between 3 and 0, if this reaches 0, the player shield is down
         public int playerShield;
@@ -59,6 +60,7 @@ namespace GradedUnitGame
         //gets players boundary for collision detection
         public Rectangle GetBoundary()
         {
+            
             return new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
         }
         #endregion
@@ -69,11 +71,12 @@ namespace GradedUnitGame
         {
             this.screenBoundary = screenBoundary;
             this.playerSprite = playerSprite;
-            playerSpeed = 1.55f;
+            playerSpeed = 2f;
             playerCoords = position;
             isAlive = true;
             playerShield = 2;
             playerScore = 0;
+            boundary = new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
         }
         #endregion
 
@@ -96,6 +99,15 @@ namespace GradedUnitGame
             movement.X *= playerSpeed;
             playerCoords += movement;
             ScrBoundaryCheck();
+        }
+        public void CollisionCheck(Lasers laser)
+        {
+            boundary = new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
+            if (isAlive && laser.Boundary.Intersects(boundary) && laser.IfIsActive())
+            {
+                laser.SetIsActive(false);
+                this.playerShield -= 1;
+            }
         }
         #endregion
 

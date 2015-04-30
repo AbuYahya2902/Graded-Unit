@@ -19,7 +19,7 @@ namespace GradedUnitGame
     {
         #region attributes
         //texture for the laser
-        Texture2D playerLaserTex;
+        Texture2D Tex;
 
         //current position of the laser
         public Vector2 laserPos;
@@ -34,10 +34,10 @@ namespace GradedUnitGame
         Rectangle boundary;
 
         //current state of laser
-        public bool isActive;
-
+        public bool isActive = false ;
         //speed of the laser when fired
         float laserSpeed = 1.05f;
+        float enemyLaserSpeed = .75f;
 
         //returns if laser is currently active
         public bool IfIsActive()
@@ -56,7 +56,7 @@ namespace GradedUnitGame
         public Lasers(Texture2D texture, Rectangle screenBoundary)
         {
             boundary = new Rectangle(0, 0, texture.Width, texture.Height);
-            playerLaserTex = texture;
+            Tex = texture;
             this.screenBoundary = screenBoundary;
             isActive = false;
         }
@@ -72,17 +72,28 @@ namespace GradedUnitGame
        //updates the lasers current position
         public void UpdatePosition()
         {
-            laserPos += movement *= laserSpeed;
+            laserPos += (movement *= laserSpeed);
             HasExited();
+        }
+        public void UpdateEnemyPosition()
+        {
+            laserPos += (movement *= enemyLaserSpeed);
         }
 
         //fires the laser
-        public void Fire(Rectangle playerPos)
+        public void Fire(Rectangle shooterPos)
         {
             isActive = true;
             movement = new Vector2(0,-1);
-            laserPos.Y = playerPos.Y - playerLaserTex.Height;
-            laserPos.X = playerPos.X + (playerPos.Width - playerLaserTex.Width) / 2;
+            laserPos.Y = shooterPos.Y - Tex.Height;
+            laserPos.X = shooterPos.X + (shooterPos.Width - Tex.Width) / 2;
+        }
+        public void FireEnemy(Rectangle shooterPos )
+        {
+            isActive = true;
+            movement = new Vector2(0, 1);
+            laserPos.Y = shooterPos.Y + Tex.Height;
+            laserPos.X = shooterPos.X + (shooterPos.Width - Tex.Width) / 2;
         }
 
         //gets the boundary for collision detection
@@ -99,7 +110,7 @@ namespace GradedUnitGame
         //detects if laser has left the top of the screen
         public void HasExited()
         {
-            if (laserPos.Y < 0)
+            if (laserPos.Y < 0 || laserPos.Y> screenBoundary.Height)
                 isActive = false;
         }
 
@@ -110,11 +121,16 @@ namespace GradedUnitGame
             HasExited();
         }
 
+        public void UpdateEnemy()
+        {
+            laserPos.Y += laserSpeed;
+            HasExited();
+        }
         //draws the lasers
         public void Draw(SpriteBatch sBatch)
         {
             if (isActive)
-                sBatch.Draw(playerLaserTex, laserPos, Color.DarkSalmon);
+                sBatch.Draw(Tex, laserPos, Color.DarkSalmon);
         }
     }
        #endregion

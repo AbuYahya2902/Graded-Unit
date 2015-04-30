@@ -115,7 +115,7 @@ namespace GradedUnitGame
           }
 
         //writes to the database
-        private void WriteDatabase(String gameMode, int playerScore)
+        public void WriteDatabase(String gameMode, int playerScore)
         {
             try
             {

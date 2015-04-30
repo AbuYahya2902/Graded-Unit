@@ -43,6 +43,7 @@ namespace GradedUnitGame
         //Holds boundary of the screen to detect collision
         Rectangle screenBoundary;
 
+        bool hasfired = false; 
         
 
         int enemiesKilled;
@@ -61,6 +62,8 @@ namespace GradedUnitGame
             boundary.Y = (int)enemyPos.Y;
             this.screenBoundary = screenBoundary;
             enemyMotion = new Vector2(1, 0);
+            hasfired = false;
+
         }
 
         public void SetMotion(Vector2 enemyMotion)
@@ -87,7 +90,7 @@ namespace GradedUnitGame
         {
             return isAlive;
         }
-        public int CollisionCheck(Lasers laser, Player player)
+        public  int CollisionCheck(Lasers laser, Player player)
         {
             if(isAlive && laser.Boundary.Intersects(boundary) && laser.IfIsActive() )
             {
@@ -111,7 +114,7 @@ namespace GradedUnitGame
         public void MoveEnemies()
         {
             enemyPos += (enemyMotion * enemySpeed);
-            Debug.WriteLine(enemyMotion + enemyPos);
+            //Debug.WriteLine(enemyMotion + enemyPos);
             //Debug.WriteLine(enemyPos);
             if ((enemyPos.X) <= 0 || enemyPos.X + enemySprite.Width >= screenBoundary.Width)
             {
@@ -121,7 +124,18 @@ namespace GradedUnitGame
             }
             boundary = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemySprite.Width, enemySprite.Height);
         }
-
+        public Rectangle getBoundary()
+        {
+            return new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemySprite.Width, enemySprite.Height);
+        }
+        public bool getFired()
+        {
+            return hasfired;
+        }
+        public void setFired(bool hasfired)
+        {
+            this.hasfired = hasfired;
+        }
         public void MoveEnemiesdl()
         {
             enemyPos.Y += enemySpeed;
