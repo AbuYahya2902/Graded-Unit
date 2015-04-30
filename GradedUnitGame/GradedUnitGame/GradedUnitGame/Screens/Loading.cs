@@ -6,6 +6,10 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
+#region copyright
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+#endregion
 
 namespace GradedUnitGame
 {

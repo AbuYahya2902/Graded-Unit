@@ -6,22 +6,32 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 #endregion
+#region copyright
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+#endregion
 
 namespace GradedUnitGame
 {
    public class InputState
     {
+       //holds the maximum allowed number of inputs
         public const int MaxInputs = 2;
 
+       //holds the current keyboard state
         public readonly KeyboardState[] CurrentKeyboardStates;
+       //holds the current gamepad state
         public readonly GamePadState[] CurrentGamePadStates;
 
+       //holds the last keyboard state
         public readonly KeyboardState[] LastKeyboardStates;
+       //holds the last gamepad state
         public readonly GamePadState[] LastGamePadStates;
 
+       //holds if a gamepad was ever connected
         public readonly bool[] GamePadWasConnected;
 
-
+       //constructor
         public InputState()
         {
             CurrentKeyboardStates = new KeyboardState[MaxInputs];

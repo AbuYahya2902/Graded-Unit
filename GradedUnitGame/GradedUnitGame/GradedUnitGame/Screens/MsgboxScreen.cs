@@ -8,6 +8,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
 
+#region copyright
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+#endregion
+
 namespace GradedUnitGame
 {
     class MsgboxScreen : GameScreen

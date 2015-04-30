@@ -17,10 +17,14 @@ namespace GradedUnitGame
    class HighscoreScreen : MenuScreen
    {
        #region attributes
+       
        MenuEntry modeEntry;
        DatabaseInt dataInt;
+       //holds the number of rows currently in the query
        int rowDraw = 0;
+       //holds the maximum number of rows that will be drawn
        int maxRows = 20;
+       //holds the currently selected game mode
        string gameMode;
        #endregion
 

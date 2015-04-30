@@ -6,14 +6,20 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
+#region copyright
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+#endregion
 
 namespace GradedUnitGame
 {
     class MenuEntry
     {
         #region attributes
+        //holds the text of the menu entry
         string text;
         float selFade;
+        //holds the menu entry position
         Vector2 pos;
         #endregion
 

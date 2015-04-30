@@ -19,7 +19,7 @@ namespace GradedUnitGame
     {
         #region attributes
         //texture for the laser
-        Texture2D laserTex;
+        Texture2D playerLaserTex;
 
         //current position of the laser
         public Vector2 laserPos;
@@ -56,7 +56,7 @@ namespace GradedUnitGame
         public Lasers(Texture2D texture, Rectangle screenBoundary)
         {
             boundary = new Rectangle(0, 0, texture.Width, texture.Height);
-            laserTex = texture;
+            playerLaserTex = texture;
             this.screenBoundary = screenBoundary;
             isActive = false;
         }
@@ -81,8 +81,8 @@ namespace GradedUnitGame
         {
             isActive = true;
             movement = new Vector2(0,-1);
-            laserPos.Y = playerPos.Y - laserTex.Height;
-            laserPos.X = playerPos.X + (playerPos.Width - laserTex.Width) / 2;
+            laserPos.Y = playerPos.Y - playerLaserTex.Height;
+            laserPos.X = playerPos.X + (playerPos.Width - playerLaserTex.Width) / 2;
         }
 
         //gets the boundary for collision detection
@@ -114,7 +114,7 @@ namespace GradedUnitGame
         public void Draw(SpriteBatch sBatch)
         {
             if (isActive)
-                sBatch.Draw(laserTex, laserPos, Color.DarkSalmon);
+                sBatch.Draw(playerLaserTex, laserPos, Color.DarkSalmon);
         }
     }
        #endregion

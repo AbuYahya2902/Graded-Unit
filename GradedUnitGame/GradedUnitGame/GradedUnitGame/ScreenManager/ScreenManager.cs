@@ -8,6 +8,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 #endregion
+#region copyright
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+#endregion
 
 namespace GradedUnitGame
 {
@@ -19,10 +23,14 @@ namespace GradedUnitGame
 
         InputState input = new InputState();
 
+        //holds the sprite batch used for drawing ingame
         SpriteBatch sBatch;
-        SpriteFont font;
-        Texture2D blankTexture;
+        //holds the game font used by the game
+        SpriteFont gameFont;
+        //holds the blank texture used for the fade to black buffer
+        Texture2D blankTex;
 
+        //holds if the screen manager is initilised or not
         bool isInitialized;
         #endregion
 
@@ -36,7 +44,7 @@ namespace GradedUnitGame
         //returns the game font
         public SpriteFont Font
         {
-            get { return font; }
+            get { return gameFont; }
         }
 
         //returns array of screens
@@ -67,8 +75,8 @@ namespace GradedUnitGame
             ContentManager content = Game.Content;
 
             sBatch = new SpriteBatch(GraphicsDevice);
-            font = content.Load<SpriteFont>("./UI Misc/MainFont");
-            blankTexture = content.Load<Texture2D>("./UI Misc/blank");
+            gameFont = content.Load<SpriteFont>("./UI Misc/MainFont");
+            blankTex = content.Load<Texture2D>("./UI Misc/blank");
 
             //tells screens to load content
             foreach (GameScreen screen in screens)
@@ -186,9 +194,7 @@ namespace GradedUnitGame
 
             sBatch.Begin();
 
-            sBatch.Draw(blankTexture,
-                             new Rectangle(0, 0, viewport.Width, viewport.Height),
-                             Color.Black * alpha);
+           sBatch.Draw(blankTex, new Rectangle(0, 0, viewport.Width, viewport.Height), Color.Black * alpha);
 
             sBatch.End();
         }

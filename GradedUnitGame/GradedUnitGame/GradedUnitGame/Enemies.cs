@@ -31,11 +31,16 @@ namespace GradedUnitGame
         //how many scorepoints the enemy is worth
         public int scoreValue;
 
+        //holds the current motion of the enemy
         public Vector2 enemyMotion;
 
+        //holds how fast the enemy is moving
         public float enemySpeed = 2f;
+
+        //holds the boundary of the enemies
         public Rectangle boundary;
 
+        //Holds boundary of the screen to detect collision
         Rectangle screenBoundary;
 
         
@@ -84,7 +89,7 @@ namespace GradedUnitGame
         }
         public int CollisionCheck(Lasers laser, Player player)
         {
-            if(isAlive && laser.Boundary.Intersects(boundary) && laser.IfsActive() )
+            if(isAlive && laser.Boundary.Intersects(boundary) && laser.IfIsActive() )
             {
                 isAlive = false;
                 laser.SetIsActive(false);
