@@ -176,7 +176,6 @@ namespace GradedUnitGame
         private void AddEnemy()
         {
             enemies = new Enemies[enemyWidth, enemyHeight];
-
             for (int e = 0; e < enemyHeight; e++)
             {
                 Texture2D enemySprite = enemy1Sprite;
@@ -203,7 +202,7 @@ namespace GradedUnitGame
                 }
                 for (int i = 0; i < enemyWidth; i++)
                 {
-                  //  enemies[i, e] = new Enemies(enemySprite, new Rectangle((i + 5) * enemySprite.Width, (e + 1) * enemySprite.Height, enemySprite.Width, enemySprite.Height), score);
+                    enemies[i, e] = new Enemies(enemySprite, new Vector2((i + 5) * enemySprite.Width, (e + 1) * enemySprite.Height), score, screenBoundary);
                 }
             }
         }
@@ -293,16 +292,23 @@ namespace GradedUnitGame
                 //move the player
                 Vector2 movement = Vector2.Zero;
 
-                if (keys.IsKeyDown(Keys.Left) || keys.IsKeyDown(Keys.A))
+                if (keys.IsKeyDown(Keys.A))
                 {
                     player.MovePlayerLeft();
                 }
 
-                if (keys.IsKeyDown(Keys.Right) || keys.IsKeyDown(Keys.D))
+                if (keys.IsKeyDown(Keys.D))
                 {
                     player.MovePlayerRight();
                 }
-
+                if(keys.IsKeyDown(Keys.Left))
+                {
+                    player2.MovePlayerLeft();
+                }
+               if (keys.IsKeyDown(Keys.Right))
+                {
+                    player2.MovePlayerRight();
+                }
                 Vector2 thumbstick = gamePad.ThumbSticks.Left;
                 movement.X += thumbstick.X;
 
