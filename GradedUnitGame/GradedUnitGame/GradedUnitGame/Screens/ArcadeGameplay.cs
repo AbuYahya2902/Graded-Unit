@@ -71,6 +71,7 @@ namespace GradedUnitGame
         float pauseAlpha;
         int bosshealth;
         string mode;
+        int playerinvinc;
         #endregion
 
         #region Initilization
@@ -126,6 +127,7 @@ namespace GradedUnitGame
             enemyLaserSound = this.content.Load<SoundEffect>("./Sounds/sadpew");
             explosions = this.content.Load<SoundEffect>("./Sounds/Explosion");
 
+            playerinvinc = 100;
             //load enemy textures
             enemy1Sprite = this.content.Load<Texture2D>("./Mobs/Mob1");
             enemy2Sprite = this.content.Load<Texture2D>("./Mobs/Mob2");
@@ -141,8 +143,7 @@ namespace GradedUnitGame
             //add lasers
             playerLasers = new Lasers(playerLaserTex, screenBoundary);
             bosslaser = new Lasers(bossLaserTex, screenBoundary);
-            enemyLasers = new Lasers(enemyLaserTex, screenBoundary);
-            //plays sound
+            enemyLasers = new Lasers(enemyLaserTex, screenBoundary);//plays sound
             PlaySound();
 
             //reset time so it doesnt try to catch up
@@ -198,6 +199,7 @@ namespace GradedUnitGame
                 for (int i = 0; i<enemyWidth; i++)
                 {
                     enemies[i, e] = new Enemies(enemySprite, new Vector2((i+5) * enemySprite.Width,  (e+1)* enemySprite.Height), score, screenBoundary);
+                    
                 }
             } 
         }
@@ -263,6 +265,7 @@ namespace GradedUnitGame
              {
                  //if(player.isAlive)
                  //{
+                 playerinvinc -= 1;
                      if(player.playerShield <=0)
                      {
                          player.isAlive = false;
@@ -274,7 +277,7 @@ namespace GradedUnitGame
                      {
                          enemiesKilled += enemy.CollisionCheck(playerLasers, player);
                         // Debug.WriteLine("Enemy Killed");
-                        // enemyLasers.isActive = false;
+                        //enemyLasers.isActive = false;
                         // Debug.WriteLine("Creates Laser");
                          if(enemy.enemyPos.X == player.playerCoords.X&& enemy.isAlive)
                          {
@@ -283,7 +286,7 @@ namespace GradedUnitGame
                              Debug.WriteLine("firesLaser");
                              enemy.setFired(true);
                             
-                             
+                              
                             
                          }
 
@@ -293,6 +296,7 @@ namespace GradedUnitGame
                          playerLasers.UpdatePosition();
                          enemyLasers.UpdateEnemyPosition();
                          player.CollisionCheck(enemyLasers);
+                         
                          
                          
                      }
@@ -438,10 +442,12 @@ namespace GradedUnitGame
             foreach (Enemies enemy in enemies)
             {
                     enemy.Draw(sBatch);
-               if(enemyLasers.isActive)   
-                enemyLasers.Draw(sBatch);
+
                 
             }
+                if (enemyLasers.isActive)
+                    enemyLasers.Draw(sBatch);
+
             //draws lasers
             playerLasers.Draw(sBatch);
 

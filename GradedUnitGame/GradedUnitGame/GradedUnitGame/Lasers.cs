@@ -22,7 +22,7 @@ namespace GradedUnitGame
         Texture2D Tex;
 
         //current position of the laser
-        public Vector2 laserPos;
+        public Vector2 laserPos = new Vector2(0,0);
 
         //movement of the laser
          Vector2 movement;
@@ -36,8 +36,8 @@ namespace GradedUnitGame
         //current state of laser
         public bool isActive = false ;
         //speed of the laser when fired
-        float laserSpeed = 1.05f;
-        float enemyLaserSpeed = .75f;
+        float laserSpeed = 1f;
+        float enemyLaserSpeed = 1f;
 
         //returns if laser is currently active
         public bool IfIsActive()
@@ -77,7 +77,7 @@ namespace GradedUnitGame
         }
         public void UpdateEnemyPosition()
         {
-            laserPos += (movement *= enemyLaserSpeed);
+            laserPos += ((movement *= enemyLaserSpeed)*0.65f);
         }
 
         //fires the laser
