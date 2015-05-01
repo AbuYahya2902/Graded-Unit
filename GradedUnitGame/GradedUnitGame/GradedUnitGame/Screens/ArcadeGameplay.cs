@@ -31,6 +31,7 @@ namespace GradedUnitGame
 
         //representation of the player
         Player player;
+        Texture2D playerSprite;
         Boss boss;
         Lasers bosslaser; 
         //screen-boundary collision for the player
@@ -129,7 +130,13 @@ namespace GradedUnitGame
             gameFont = content.Load<SpriteFont>("./UI Misc/MainFont");
 
             //load player resources
-            Texture2D playerSprite = this.content.Load<Texture2D>("./Players/Player1");
+            if(OptionsScreen.currentShip == OptionsScreen.playerShip.One)
+            playerSprite = this.content.Load<Texture2D>("./Players/Player1");
+            if (OptionsScreen.currentShip == OptionsScreen.playerShip.Two)
+                playerSprite = this.content.Load<Texture2D>("./Players/Player2");
+            if (OptionsScreen.currentShip == OptionsScreen.playerShip.Three)
+                playerSprite = this.content.Load<Texture2D>("./Players/Player3");
+
             playerLaserTex = this.content.Load<Texture2D>("./Players/Player Laser");
             Vector2 playerCoords = new Vector2(400, 425);
             player = new Player(playerCoords, playerSprite, screenBoundary);

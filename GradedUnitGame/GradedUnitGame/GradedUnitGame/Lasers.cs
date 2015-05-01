@@ -32,6 +32,7 @@ namespace GradedUnitGame
 
         //collision detection for other objects
         Rectangle boundary;
+        Color laserColor;
 
         //current state of laser
         public bool isActive = false ;
@@ -59,14 +60,9 @@ namespace GradedUnitGame
             Tex = texture;
             this.screenBoundary = screenBoundary;
             isActive = false;
+            setLaserColor();
         }
-
-       public void SetLaserColour(Color colour)
-        {
-           // this.colour = OptionsScreen.currentColour;
-
-        }
-        #endregion
+#endregion 
 
        #region draw&update
        //updates the lasers current position
@@ -130,7 +126,20 @@ namespace GradedUnitGame
         public void Draw(SpriteBatch sBatch)
         {
             if (isActive)
-                sBatch.Draw(Tex, laserPos, Color.DarkSalmon);
+                sBatch.Draw(Tex, laserPos, laserColor);
+        }
+        public void setLaserColor()
+        {
+            if (OptionsScreen.currentColour == OptionsScreen.laserColour.Blue)
+                laserColor = Color.Aqua;
+            if (OptionsScreen.currentColour == OptionsScreen.laserColour.DrkSalmon)
+                laserColor = Color.DarkSalmon;
+            if (OptionsScreen.currentColour == OptionsScreen.laserColour.Green)
+                laserColor = Color.LawnGreen;
+            if (OptionsScreen.currentColour == OptionsScreen.laserColour.Red)
+                laserColor = Color.Crimson;
+            if (OptionsScreen.currentColour == OptionsScreen.laserColour.Yellow)
+                laserColor = Color.Goldenrod;
         }
     }
        #endregion
