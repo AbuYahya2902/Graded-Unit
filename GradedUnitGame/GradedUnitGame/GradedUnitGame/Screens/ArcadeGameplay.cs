@@ -316,9 +316,9 @@ namespace GradedUnitGame
                      }
 
                      //if all enemies are dead, reset them
-                     if (enemiesKilled == (enemyWidth * enemyHeight) && wavesKilled < 1)
+                     if (enemiesKilled == (enemyWidth * enemyHeight) && wavesKilled < 10)
                      { ResetEnemies(); }
-                     if (wavesKilled >= 1 && !isBossAlive)
+                     if (wavesKilled >= 10 && !isBossAlive)
                      {
                          addBoss();
                          isBossAlive = true;

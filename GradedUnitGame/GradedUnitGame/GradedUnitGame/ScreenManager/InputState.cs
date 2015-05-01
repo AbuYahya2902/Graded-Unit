@@ -120,9 +120,13 @@ namespace GradedUnitGame
 
             return IsNewKeyPress(Keys.Space, conPlayer, out playerIndex) ||
                 IsNewKeyPress(Keys.F, conPlayer, out playerIndex) ||
-                  IsNewKeyPress(Keys.NumPad0, conPlayer, out playerIndex) ||
                 IsNewButtonPress(Buttons.A, conPlayer, out playerIndex);
               
+        }
+       public bool isp2Fired(PlayerIndex?conPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.NumPad0, conPlayer, out playerIndex);
         }
 
         /// <summary>

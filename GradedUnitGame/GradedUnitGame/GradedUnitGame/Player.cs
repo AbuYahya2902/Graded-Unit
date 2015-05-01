@@ -74,7 +74,7 @@ namespace GradedUnitGame
             playerSpeed = 2f;
             playerCoords = position;
             isAlive = true;
-            playerShield = 3;
+            playerShield = 15;
             playerScore = 0;
             boundary = new Rectangle((int)playerCoords.X, (int)playerCoords.Y, playerSprite.Width, playerSprite.Height);
         }

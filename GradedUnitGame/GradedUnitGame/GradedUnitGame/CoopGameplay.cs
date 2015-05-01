@@ -3,49 +3,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 #endregion
 
 namespace GradedUnitGame
 {
     /// <summary>
-    /// this is the class for the co-op gameplay mode
+    /// this is the class for the main gameplay, arcade mode
     /// </summary>
     class CoopGameplay : GameScreen
     {
         #region attributes
-        SpriteFont gameFont;
         ContentManager content;
-
-        //screen-boundary collision for the player
-        Rectangle screenBoundary;
+        SpriteFont gameFont;
 
         //image used for the game background
         Texture2D bgTex;
 
+        //holds if the highscore has been written, to stop spam
+        bool hasBeenWritten;
+
         //representation of the player
         Player player;
-
-        //representation for player two
+        Texture2D playerSprite;
         Player player2;
-
-        //texture for player two
         Texture2D player2Sprite;
+        Boss boss;
+        Lasers bosslaser;
+        //screen-boundary collision for the player
+        Rectangle screenBoundary;
 
-        //current position for player two
-        Vector2 player2Pos = new Vector2(500, 425);
-
-        //boss textures
-        Texture2D bossSprite;
-        Texture2D bossLaserTex;
-        //boss current position
-        Vector2 bossPos = new Vector2(350, 40);
-        //holds the boss's current hp
-        int bossCurrentHP = 100;
+        DatabaseInt databaseInt;
 
         //sounds used in-game
         SoundEffect gameMusic;
@@ -55,39 +49,58 @@ namespace GradedUnitGame
         SoundEffect explosions;
 
         //lasers
-        Texture2D laserTex;
+        Texture2D playerLaserTex;
         Lasers playerLasers;
+        Lasers player2Lasers;
 
         //fire rate of the player
         TimeSpan fireDelay;
         TimeSpan prevFireTime;
 
-        //enemies
+        //enemy textures 
         Texture2D enemyLaserTex;
         Texture2D enemy1Sprite;
         Texture2D enemy2Sprite;
         Texture2D enemy3Sprite;
         Texture2D enemy4Sprite;
+        Texture2D bossSprite;
+        Texture2D bossLaserTex;
+
+        //creates the lasers for the enemies and creates the enemies as an array
         Lasers enemyLasers;
         Enemies[,] enemies;
+
+        //holds how many points each enemy is worth
         int scoreValue = 0;
-        int enemyWidth = 10;
+
+        //holds how many enemies are spawned 
+        int enemyWidth = 11;
         int enemyHeight = 4;
 
-        DatabaseInt dataInt;
+        //holds the 
+        int enemiesKilled = 0;
+        int wavesKilled;
 
+        //holds if the boss is currently alive and its current hp 
+        bool isBossAlive;
+        int bossHealth;
+
+        //holds the gamemode for writing to the database
+        string mode;
+
+        //holds the alpha for fading to black during pause screen
         float pauseAlpha;
         #endregion
 
-        //constructor
+        #region Initilization
+        //constructor for this game mode
         public CoopGameplay()
         {
             TransOnTime = TimeSpan.FromSeconds(1.5);
             TransOffTime = TimeSpan.FromSeconds(0.5);
         }
 
-        #region initilization
-        //sets initial values for all variables
+        //initializes attributes
         public void Initialize()
         {
             //sets time keeper to 0
@@ -97,7 +110,8 @@ namespace GradedUnitGame
             fireDelay = TimeSpan.FromSeconds(.25f);
         }
 
-        //loads the content, this is called once per game 
+
+        //loads content, called once per game
         public override void LoadContent()
         {
             if (content == null)
@@ -105,23 +119,38 @@ namespace GradedUnitGame
 
             //load the game background
             bgTex = this.content.Load<Texture2D>("./UI Misc/earth");
+            //set mode
+            mode = "Arcade";
 
-            //load game font
-            gameFont = content.Load<SpriteFont>("./UI Misc/MainFont");
 
             //load screen boundary for collision detection
             screenBoundary = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
-            //load player resources
-            Texture2D playerSprite = this.content.Load<Texture2D>("./Players/Player1");
-            laserTex = this.content.Load<Texture2D>("./Players/Player Laser");
-            Vector2 playerCoords = new Vector2(300, 425);
-            player = new Player(playerCoords, playerSprite, screenBoundary);
+            //loads a new database int for writing to database
+            databaseInt = new DatabaseInt();
 
-            //load player 2 resources
+            //load game font
+            gameFont = content.Load<SpriteFont>("./UI Misc/MainFont");
+
+            //load player resources
+            if (OptionsScreen.currentShip == OptionsScreen.playerShip.One)
+                playerSprite = this.content.Load<Texture2D>("./Players/Player1");
+            if (OptionsScreen.currentShip == OptionsScreen.playerShip.Two)
+                playerSprite = this.content.Load<Texture2D>("./Players/Player2");
+            if (OptionsScreen.currentShip == OptionsScreen.playerShip.Three)
+                playerSprite = this.content.Load<Texture2D>("./Players/Player3");
             player2Sprite = this.content.Load<Texture2D>("./Players/Player2");
-            player2 = new Player(player2Pos, player2Sprite, screenBoundary);
-          
+            playerLaserTex = this.content.Load<Texture2D>("./Players/Player Laser");
+            Vector2 playerCoords = new Vector2(400, 425);
+            Vector2 player2Coords = new Vector2(300, 425);
+            player = new Player(playerCoords, playerSprite, screenBoundary);
+            player2 = new Player(player2Coords, player2Sprite, screenBoundary);
+
+            //initialises boss health, enemies killed and waves killed counters
+            enemiesKilled = 0;
+            wavesKilled = 0;
+            bossHealth = 1;
+
             //load sounds
             gameMusic = this.content.Load<SoundEffect>("./Sounds/DST-CryolithicBreak");
             gameMusicInstance = gameMusic.CreateInstance();
@@ -129,31 +158,35 @@ namespace GradedUnitGame
             enemyLaserSound = this.content.Load<SoundEffect>("./Sounds/sadpew");
             explosions = this.content.Load<SoundEffect>("./Sounds/Explosion");
 
+
             //load enemy textures
             enemy1Sprite = this.content.Load<Texture2D>("./Mobs/Mob1");
             enemy2Sprite = this.content.Load<Texture2D>("./Mobs/Mob2");
             enemy3Sprite = this.content.Load<Texture2D>("./Mobs/Mob3");
             enemy4Sprite = this.content.Load<Texture2D>("./Mobs/Mob4");
             enemyLaserTex = this.content.Load<Texture2D>("./Mobs/Mob Laser");
-
-            //load boss texture
             bossSprite = this.content.Load<Texture2D>("./Mobs/Boss");
             bossLaserTex = this.content.Load<Texture2D>("./Mobs/Boss Laser");
+
             //add enemies
             AddEnemy();
 
-            //add lasers
-            playerLasers = new Lasers(laserTex, screenBoundary);
+            //initialises hasbeenwritten
+            hasBeenWritten = false;
 
-            //plays music
+            //add lasers
+            playerLasers = new Lasers(playerLaserTex, screenBoundary);
+            player2Lasers = new Lasers(playerLaserTex, screenBoundary);
+            bosslaser = new Lasers(bossLaserTex, screenBoundary);
+            enemyLasers = new Lasers(enemyLaserTex, screenBoundary);
+
+            //plays sound
             PlaySound();
 
             //reset time so it doesnt try to catch up
             ScreenManager.Game.ResetElapsedTime();
         }
-#endregion
 
-        #region draw&update
         //plays game music if its not already playing, unless music is disabled in menu
         private void PlaySound()
         {
@@ -203,15 +236,40 @@ namespace GradedUnitGame
                 for (int i = 0; i < enemyWidth; i++)
                 {
                     enemies[i, e] = new Enemies(enemySprite, new Vector2((i + 5) * enemySprite.Width, (e + 1) * enemySprite.Height), score, screenBoundary);
+
                 }
             }
         }
 
+        //resets the enemies when they are killed
+        public void ResetEnemies()
+        {
+            foreach (Enemies enemy in enemies)
+            {
+
+                // enemy.SetPosition(new Vector2((enemy1Sprite.Width + (i * 50)), (i * enemy1Sprite.Height)));
+
+                enemy.SetMotion(new Vector2(1, 0));
+                AddEnemy();
+                enemiesKilled = 0;
+            }
+            //increase counter 
+            wavesKilled += 1;
+        }
+
+        //adds the boss to the game screen
+        private void addBoss()
+        {
+            boss = new Boss(bossSprite, new Vector2(100, 100), 100, screenBoundary, 8);
+            bossHealth = boss.GetHealth();
+            Debug.WriteLine(bossHealth);
+        }
         //adds the lasers
         private void AddLaser()
         {
             if (!playerLasers.IfIsActive())
                 playerLasers.Fire(player.GetBoundary());
+
 
             //play player-laser sound only when player is firing a laser
             if (playerLasers.IfIsActive())
@@ -220,20 +278,110 @@ namespace GradedUnitGame
             }
 
         }
+        private void AddP2Laser()
+        {
+            if (!player2Lasers.IfIsActive())
+            {
+                player2Lasers.Fire(player2.GetBoundary());
+                playerLaserSound.Play();
+            }
+        }
+        //unloads the content, this is called once per game end
+        public override void UnloadContent()
+        {
+            content.Unload();
+        }
+        #endregion
 
-        //updates all the game elements during gameplay (movement etc)
+        #region Update&Draw
+        //updates the game attributes
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
-            playerLasers.UpdatePosition();
 
-            foreach (Enemies enemy in enemies)
+
+            if (IsActive)
             {
-                enemy.CollisionCheck(playerLasers, player);
+                //if player shield drops to 0, player is considered dead
+                if (player.playerShield <= 0)
+                {
+                    player.isAlive = false;
+                }
+
+                if (player.playerShield > 0 || bossHealth > 0)
+                {
+                    foreach (Enemies enemy in enemies)
+                    {
+                        enemiesKilled += enemy.CollisionCheck(playerLasers, player);
+                        enemiesKilled += enemy.CollisionCheck(player2Lasers, player);
+                        if (enemy.enemyPos.X == player.playerCoords.X && enemy.isAlive|| enemy.enemyPos.X == player2.playerCoords.X && enemy.isAlive)
+                        {
+                            enemyLasers = new Lasers(enemyLaserTex, screenBoundary);
+                            enemyLasers.FireEnemy(enemy.getBoundary());
+                            Debug.WriteLine("firesLaser");
+                            enemy.setFired(true);
+                        }
+                        //moves enemies
+                        enemy.MoveEnemies();
+                        //updates laser position
+                        playerLasers.UpdatePosition();
+                        player2Lasers.UpdatePosition();
+                        enemyLasers.UpdateEnemyPosition();
+                        //checks for player collision with enemy lasers
+                        player.CollisionCheck(enemyLasers);
+                        player2.CollisionCheck(enemyLasers);
+                    }
+
+                    //if all enemies are dead, reset them
+                    if (enemiesKilled == (enemyWidth * enemyHeight) && wavesKilled < 10)
+                    { ResetEnemies(); }
+                    if (wavesKilled >= 10&& !isBossAlive)
+                    {
+                        addBoss();
+                        isBossAlive = true;
+                    }
+                    //if boss is up, handle it
+                    if (isBossAlive && bossHealth > 0)
+                    {
+                        boss.MoveEnemies();
+                        bosslaser.UpdateEnemyPosition();
+                        bossHealth -= boss.CollisionCheckBoss(playerLasers, player);
+                        bossHealth -= boss.CollisionCheckBoss(player2Lasers, player);
+                        Debug.WriteLine("1 " + bossHealth);
+                        boss.SetIsAlive(true);
+                        boss.SetHealth(bossHealth);
+                        Debug.WriteLine("2 " + bossHealth);
+                        if ((boss.enemyPos.X == player.playerCoords.X) || (boss.enemyPos.X == player2.playerCoords.X))
+                        {
+                            bosslaser = new Lasers(bossLaserTex, screenBoundary);
+                            bosslaser.FireEnemy(boss.getBoundary());
+                            Debug.WriteLine("firing Boss LASER");
+                        }
+                    }
+                    //if palyer defeats boss, write highscore  
+                    if (!hasBeenWritten && bossHealth <= 0)
+                    {
+                        player.playerScore += boss.GetScore();
+                        WriteDb();
+                        foreach (Enemies enemy in enemies)
+                        {
+                            enemy.isAlive = false;
+                        }
+                    }
+                    //if player is dead, write highscore
+                    if (player.playerShield <= 0 && !hasBeenWritten)
+                    {
+                        WriteDb();
+                        foreach (Enemies enemy in enemies)
+                        {
+                            enemy.isAlive = false;
+                        }
+                    }
+                }
+
+
+
             }
-            //todo UpdateEnemies();
-            //todo UpdateCollision();
-            //todo check if player.isAlive == false, then end game + prompt user to enter name + call dataInt.WriteDatabase()
 
             // fade in or out if covered by pause screen.
             if (coveredByOtherScreen)
@@ -242,29 +390,21 @@ namespace GradedUnitGame
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
         }
 
-        //updates the enemy to player collision
-        private void UpdateCollision()
+
+        //writes the high score to the database
+        private void WriteDb()
         {
-            Rectangle enemyBox;
-            Rectangle enemyLaserBox;
-            Rectangle playerBox;
-            Rectangle playerLaserBox;
+            //uses visual basic input box to prompt user for their name
+            string playerName = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "").ToString();
+
+            if (playerName.Length > 10)
+            { playerName = playerName.Substring(0, 10); }
+
+            databaseInt.AddNameDB(playerName);
+            databaseInt.WriteDatabase(mode, player.playerScore);
+
+            hasBeenWritten = true;
         }
-
-
-       public void UpdateEnemies()
-       {
-           //todo: make enemies move and attack
-           //enemies move left until they hit screen bounds, then move down and then move right until screen bounds
-           //down then left, repeat
-       }
-
-       //updates the boss
-       public void UpdateBoss(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
-       {
-           bossCurrentHP = (int)MathHelper.Clamp(bossCurrentHP, 0, 100);
-       }
-
 
         //handles the player input
         public override void HandleInput(InputState input)
@@ -297,17 +437,17 @@ namespace GradedUnitGame
                     player.MovePlayerLeft();
                 }
 
-                if (keys.IsKeyDown(Keys.D))
+                if ( keys.IsKeyDown(Keys.D))
                 {
                     player.MovePlayerRight();
+                }
+                if ( keys.IsKeyDown(Keys.Right))
+                {
+                    player2.MovePlayerRight();
                 }
                 if(keys.IsKeyDown(Keys.Left))
                 {
                     player2.MovePlayerLeft();
-                }
-               if (keys.IsKeyDown(Keys.Right))
-                {
-                    player2.MovePlayerRight();
                 }
                 Vector2 thumbstick = gamePad.ThumbSticks.Left;
                 movement.X += thumbstick.X;
@@ -322,8 +462,15 @@ namespace GradedUnitGame
                 {
                     AddLaser();
                 }
+                if(input.isp2Fired(ConPlayer))
+                {
+                    AddP2Laser();
+                }
+
+
             }
         }
+
 
         //draws the sprites onto the game screen
         public override void Draw(GameTime gameTime)
@@ -333,31 +480,47 @@ namespace GradedUnitGame
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             sBatch.Begin();
-
+            //draws the game background
             sBatch.Draw(bgTex, fullscreen, Color.White);
-            //display player current score
+            //draws the player
+            player.Draw(sBatch);
+            player2.Draw(sBatch);
+            //draws the array of enemies
+            foreach (Enemies enemy in enemies)
+            {
+                enemy.Draw(sBatch);
+            }
+            if (enemyLasers.isActive)
+                enemyLasers.Draw(sBatch);
+
+            //draws lasers
+            playerLasers.Draw(sBatch);
+            player2Lasers.Draw(sBatch);
+
+            //draws boss laser
+            if (bosslaser.isActive)
+                bosslaser.Draw(sBatch);
+
+            //display players current score
             sBatch.DrawString(gameFont, "Score: " + player.playerScore, new Vector2(10, 1), Color.HotPink);
             //display players current shields
             sBatch.DrawString(gameFont, "Shields: " + player.playerShield, new Vector2(690, 1), Color.HotPink);
 
-            //draws player 1
-            player.Draw(sBatch);
-            //draws player 2
-            player2.Draw(sBatch);
-            //draws the array of enemies
-            foreach (Enemies enemy in enemies)
-                enemy.Draw(sBatch);
-            //draws the player lasers
-            playerLasers.Draw(sBatch);
-            //draws the boss
-            sBatch.Draw(bossSprite, bossPos, Color.White);
-            //draws the enemies lasers
-            //draws the boss laser
-
-            //todo: end game screen + displayscores
+            //ends game screen + displays score
             if (player.isAlive == false)
             {
                 sBatch.DrawString(gameFont, "Game Over!", new Vector2(viewport.Width / 2, viewport.Height / 2), Color.Coral);
+                sBatch.DrawString(gameFont, "Final Score: " + player.playerScore, new Vector2(450, 300), Color.DeepPink);
+            }
+            //if boss is alive, draw on screen
+            if (isBossAlive && bossHealth > 0)
+            {
+                boss.Draw(sBatch);
+            }
+            //if boss is dead, display victory & prompt player for name
+            if (bossHealth <= 0)
+            {
+                sBatch.DrawString(gameFont, "Victory!", new Vector2(viewport.Width / 2, viewport.Height / 2), Color.Coral);
                 sBatch.DrawString(gameFont, "Final Score: " + player.playerScore, new Vector2(450, 300), Color.DeepPink);
             }
             sBatch.End();
@@ -370,9 +533,9 @@ namespace GradedUnitGame
                 base.Draw(gameTime);
             }
         }
-
     }
-        #endregion
 }
-    
+        #endregion
+
+
 
