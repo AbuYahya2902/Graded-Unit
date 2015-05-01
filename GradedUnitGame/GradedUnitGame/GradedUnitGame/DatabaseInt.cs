@@ -31,7 +31,7 @@ namespace GradedUnitGame
         OleDbConnection connection = null;
 
         //tells the game where to look for the database
-        string conString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:/Users/Siobhan/Documents/GitHub/Graded-Unit/GradedUnitGame/HighScoresDB.accdb";
+        string conString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:/Users/Siobhan/Documents/GitHub/Graded-Unit/GradedUnitGame/HighScoresDB.accdb";
 
         //initialises the default transaction value as null
         OleDbTransaction transaction = null;
@@ -44,7 +44,7 @@ namespace GradedUnitGame
         public int CheckRows()
         {
             rowDraw = 1;
-            rowDraw = dataSet.Tables["HighScores"].Rows.Count;
+            rowDraw = dataSet.Tables["Score"].Rows.Count;
             //returns how many rows to draw
             return rowDraw;
         }
@@ -64,15 +64,15 @@ namespace GradedUnitGame
             //displays the highscores for the chosen mode
             if (gameMode == "CoOp") 
             {
-                modeSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user_id] = Player.ID AND HighScores.[user_id] = Player.ID) WHERE (HighScores.ModeType = 'CoOp') ORDER BY HighScores.Score DESC, Player.Name;";
+                modeSelect = "SELECT Player.PlayerName, Score.Score, Score.Mode FROM(Score INNER JOIN Player ON Score.PlayerID = Player.PlayerID) WHERE(Score.Mode = 'CoOp') ORDER BY Score.Score DESC, Player.PlayerName DESC";
             }
             else if (gameMode == "Arcade")
-                { 
-                modeSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user_id] = Player.ID AND HighScores.[user_id] = Player.ID) WHERE (HighScores.ModeType = 'Comp') ORDER BY HighScores.Score DESC, Player.Name;";
+                {
+                    modeSelect = "SELECT Player.PlayerName, Score.Score, Score.Mode FROM(Score INNER JOIN Player ON Score.PlayerID = Player.PlayerID) WHERE(Score.Mode = 'Arcade') ORDER BY Score.Score DESC, Player.PlayerName DESC";
                 }
             else
             {
-                modeSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user_id] = Player.ID AND HighScores.[user_id] = Player.ID) WHERE (HighScores.ModeType = 'Comp') ORDER BY HighScores.Score DESC, Player.Name;";
+                modeSelect = "SELECT Player.PlayerName, Score.Score, Score.Mode FROM(Score INNER JOIN Player ON Score.PlayerID = Player.PlayerID) WHERE(Score.Mode = 'Endless') ORDER BY Score.Score DESC, Player.PlayerName DESC";
             }
             try
             {
@@ -80,7 +80,7 @@ namespace GradedUnitGame
             }
             catch (Exception x)
             {
-                MsgboxScreen message = new MsgboxScreen("Error: Failed to create a database connection! \n{0}" + x.Message, true);
+                MessageBox.Show(x.ToString());
                 return;
             }
             try
@@ -91,11 +91,12 @@ namespace GradedUnitGame
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(accessCmd);
 
                 connection.Open();
-                dataAdapter.Fill(dataSet, "HighScores");
+                dataAdapter.Fill(dataSet, "Score");
+                dataRowC = dataSet.Tables["Score"].Rows;
             }
             catch (Exception ex)
             {
-                MsgboxScreen message = new MsgboxScreen("Error: Failed to retrieve the requested data! \n{0}" + ex.Message, true); 
+                MessageBox.Show(ex.ToString()); 
             }
             finally 
             {
@@ -104,7 +105,7 @@ namespace GradedUnitGame
             try
             {
                 //passes the values to the data collection
-                dataRowC = dataSet.Tables["HighScores"].Rows;
+                dataRowC = dataSet.Tables["Score"].Rows;
                 rowDraw = 1;
             }
             catch (Exception x)
@@ -136,11 +137,11 @@ namespace GradedUnitGame
             Cmd.Transaction = transaction;
             try
             {
-                Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@id);";
+                Cmd.CommandText = "INSERT INTO Score(Score,Mode,PlayerID) VALUES(@playerScore,@gameMode,@playerID);";
                 //Values to be added
-                Cmd.Parameters.AddWithValue("@Score", playerScore);
-                Cmd.Parameters.AddWithValue("@Mode", gameMode);
-                Cmd.Parameters.AddWithValue("@id", playerID);
+                Cmd.Parameters.AddWithValue("@playerScore", playerScore);
+                Cmd.Parameters.AddWithValue("@gameMode", gameMode);
+                Cmd.Parameters.AddWithValue("@playerId", playerID);
                 //executes the command
                 Cmd.ExecuteNonQuery(); 
                 //commits changes
@@ -176,8 +177,8 @@ namespace GradedUnitGame
                 transaction = connection.BeginTransaction();
                 Cmd.Transaction = transaction;
                 //the SQL query
-                Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
-                Cmd.Parameters.AddWithValue("@Name", playerName);
+                Cmd.CommandText = "INSERT INTO Player(PlayerName) VALUES(@playerName);";
+                Cmd.Parameters.AddWithValue("@playerName", playerName);
                 //starts query
                 Cmd.ExecuteNonQuery();
                 Cmd.CommandText = "SELECT @@IDENTITY;";

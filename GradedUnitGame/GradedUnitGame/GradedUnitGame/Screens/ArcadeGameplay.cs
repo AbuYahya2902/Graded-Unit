@@ -248,7 +248,7 @@ namespace GradedUnitGame
         private void addBoss()
         {
             boss = new Boss(bossSprite, new Vector2(100, 100), 100, screenBoundary, 8);
-            bossHealth = boss.getHealth();
+            bossHealth = boss.GetHealth();
             Debug.WriteLine(bossHealth);
         }
         //adds the lasers
@@ -324,7 +324,7 @@ namespace GradedUnitGame
                          bossHealth -= boss.CollisionCheckBoss(playerLasers, player);
                          Debug.WriteLine("1 "+bossHealth);
                          boss.SetIsAlive(true);
-                         boss.setHealth(bossHealth);
+                         boss.SetHealth(bossHealth);
                          Debug.WriteLine("2 "+ bossHealth);
                          if( (boss.enemyPos.X == player.playerCoords.X))
                          {
@@ -336,7 +336,7 @@ namespace GradedUnitGame
                          //if palyer defeats boss, write highscore  
                          if (!hasBeenWritten && bossHealth <= 0 )
                          {
-                             player.playerScore += boss.getScore();
+                             player.playerScore += boss.GetScore();
                              WriteDb();
                              foreach (Enemies enemy in enemies)
                              {

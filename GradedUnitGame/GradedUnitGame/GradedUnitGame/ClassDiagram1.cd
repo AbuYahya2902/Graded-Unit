@@ -22,7 +22,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnitGame.MenuEntry" Collapsed="true">
-    <Position X="9.5" Y="6.75" Width="1.5" />
+    <Position X="9.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAAAAIBAAACAAAAIQAAACEQAAAI=</HashCode>
       <FileName>Screens\MenuEntry.cs</FileName>
@@ -67,7 +67,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnitGame.DatabaseInt" Collapsed="true">
-    <Position X="9.5" Y="6" Width="1.5" />
+    <Position X="9.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAIgAAABAhAgCAABABAAAAAAABAAAAAAAAAAgAI=</HashCode>
       <FileName>DatabaseInt.cs</FileName>
@@ -85,9 +85,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnitGame.Enemies" Collapsed="true">
-    <Position X="11.5" Y="4" Width="1.5" />
+    <Position X="5.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAEAgSQAAAgjgAAAEAAAAAAAAEAAgBAAAAAQAFAIAA=</HashCode>
+      <HashCode>EAQEQgSQAAAgjgAAAEAAAAAAAAEABgBIAAAAQAFAIAA=</HashCode>
       <FileName>Enemies.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -101,14 +101,14 @@
   <Class Name="GradedUnitGame.Lasers" Collapsed="true">
     <Position X="11.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQEBAQAAAAEAiACAAIAABAAAgAEABAAIAAAEAAABAA=</HashCode>
+      <HashCode>AAQEBAQAAAAEgqACAAMAABAABAAkABAAAAAAEAAABAI=</HashCode>
       <FileName>Lasers.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnitGame.Player" Collapsed="true">
-    <Position X="11.5" Y="3.25" Width="1.5" />
+    <Position X="11.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAARAAAAMAgCAAAAAQAQEAAABAAABAwQAAAEAAAA=</HashCode>
+      <HashCode>AAAEAARAAAAMAgCAAAAAQAQEAAABAAABAwQAAAFAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -136,15 +136,22 @@
   <Class Name="GradedUnitGame.ScreenManager" Collapsed="true">
     <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYAEAAgAAAgAwAAAAQAAAAAAAAAiBAERAAAgAACCAQ=</HashCode>
+      <HashCode>AAQAEAAgAAAgAwAAAASAAAAAAAAAiBAERAAAAABCCAQ=</HashCode>
       <FileName>ScreenManager\ScreenManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnitGame.ArcadeGameplay" Collapsed="true">
     <Position X="9.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQCEESDIIAAC4AaAQCQAAgAAgCAACABgQAAAAEBAAQ=</HashCode>
+      <HashCode>AAQCEESDIQAgC4CaAQCQAEgAQgCIACABhQIIAAEAQQQ=</HashCode>
       <FileName>Screens\ArcadeGameplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GradedUnitGame.Boss" Collapsed="true">
+    <Position X="7.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgiAAAAg=</HashCode>
+      <FileName>Boss.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="GradedUnitGame.ScreenState" Collapsed="true">
