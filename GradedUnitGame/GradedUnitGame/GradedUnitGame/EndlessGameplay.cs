@@ -216,15 +216,6 @@ namespace GradedUnitGame
         
         }
 
-        private void UpdateCollision()
-        {
-            Rectangle enemyBox;
-            Rectangle enemyLaserBox;
-            Rectangle playerBox;
-            Rectangle playerLaserBox;
-        }
-
-
         //updates the boss
         public void UpdateBoss(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
