@@ -200,11 +200,9 @@ namespace GradedUnitGame
             foreach (DataRow dataR in dataRowC)
             {
                 //Draws the player name
-                sBatch.DrawString(gameFont, dataR[0].ToString(), new Vector2(5, 100 + count), Color.White); 
+                sBatch.DrawString(gameFont, dataR[0].ToString(), new Vector2(50, 100 + count), Color.Purple); 
                 //draws the player score
-                sBatch.DrawString(gameFont, dataR[1].ToString(), new Vector2(250, 100 + count), Color.White); 
-                //draws the gamemode
-                sBatch.DrawString(gameFont, dataR[2].ToString(), new Vector2(350, 100 + count), Color.White);
+                sBatch.DrawString(gameFont, dataR[1].ToString(), new Vector2(300, 100 + count), Color.White); 
                 count += 50;
                
             }

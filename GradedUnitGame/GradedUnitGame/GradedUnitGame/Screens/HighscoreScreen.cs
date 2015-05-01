@@ -84,12 +84,13 @@ namespace GradedUnitGame
            // setMenuText();
        }
 
+       //draws the current gamemode and score
        public override void Draw(GameTime gameTime)
        {
            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
            SpriteFont font = ScreenManager.Font;
            spriteBatch.Begin();
-           spriteBatch.DrawString(font, "Mode; " + currentMode, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 10), Color.White);
+           spriteBatch.DrawString(font, "Mode: " + currentMode, new Vector2(300, 10), Color.White);
            int i = 1;
            int count = 0;
            rowDraw = dataInt.CheckRows();
@@ -101,6 +102,8 @@ namespace GradedUnitGame
            }
            spriteBatch.End();
        }
+
+       //loads content for this screen
        public override void LoadContent()
        {
            ContentManager content = ScreenManager.Game.Content;
