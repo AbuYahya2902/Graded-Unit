@@ -120,7 +120,7 @@ namespace GradedUnitGame
             //load the game background
             bgTex = this.content.Load<Texture2D>("./UI Misc/earth");
             //set mode
-            mode = "Arcade";
+            mode = "CoOp";
 
 
             //load screen boundary for collision detection
