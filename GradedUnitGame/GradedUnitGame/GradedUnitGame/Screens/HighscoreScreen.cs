@@ -23,7 +23,7 @@ namespace GradedUnitGame
        //holds the number of rows currently in the query
        int rowDraw = 0;
        //holds the maximum number of rows that will be drawn
-       int maxRows = 20;
+       int maxRows = 10;
        //holds the currently selected game mode
        string gameMode;
        #endregion
@@ -81,9 +81,26 @@ namespace GradedUnitGame
                gameMode = "Endless";
                dataInt.ReadDatabase(gameMode);
            }
-            setMenuText();
+           // setMenuText();
        }
 
+       public override void Draw(GameTime gameTime)
+       {
+           SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+           SpriteFont font = ScreenManager.Font;
+           spriteBatch.Begin();
+           spriteBatch.DrawString(font, "Mode; " + currentMode, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 10), Color.White);
+           int i = 1;
+           int count = 0;
+           rowDraw = dataInt.CheckRows();
+           while (i <= rowDraw && i <= maxRows)
+           {
+               dataInt.Draw(font, spriteBatch, count);
+               i++;
+
+           }
+           spriteBatch.End();
+       }
        public override void LoadContent()
        {
            ContentManager content = ScreenManager.Game.Content;
