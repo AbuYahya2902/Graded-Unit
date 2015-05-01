@@ -30,7 +30,7 @@ namespace GradedUnitGame
 
        //holds if a gamepad was ever connected
         public readonly bool[] GamePadWasConnected;
-
+       
        //constructor
         public InputState()
         {
